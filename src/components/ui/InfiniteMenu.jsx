@@ -918,4 +918,3 @@ const InfiniteMenu = ({
 };
 
 export default InfiniteMenu;
-
