@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { label: 'Home', href: '#top', active: true },
   { label: 'Services', href: '#services', active: false },
   { label: 'Products', href: '#products', active: false },
-  { label: 'Our Barbers', href: '#about', active: false },
+  { label: 'Our Barbers', href: '#barbers', active: false },
   { label: 'The Shop', href: '#gallery', active: false },
   { label: 'Contact', href: '#contact', active: false },
 ];

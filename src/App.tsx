@@ -15,6 +15,7 @@ import { HeroSection } from './components/HeroSection';
 import { ServicesSection } from './components/ServicesSection';
 import { ProductsSection } from './components/ProductsSection';
 import { MeetYourBarberSection } from './components/MeetYourBarberSection';
+import { OurBarbersSection } from './components/OurBarbersSection';
 import { TransformationGallerySection } from './components/TransformationGallerySection';
 import { CustomerReviewsSection } from './components/CustomerReviewsSection';
 import { VisitAndBookSection } from './components/VisitAndBookSection';
@@ -88,6 +89,8 @@ export default function App() {
         <ProductsSection />
 
         <MeetYourBarberSection />
+
+        <OurBarbersSection />
 
         <TransformationGallerySection />
 

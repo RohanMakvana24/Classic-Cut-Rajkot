@@ -1,27 +1,20 @@
 import React, { useState } from 'react';
 import {
-  Scissors,
-  Sparkles,
-  Shield,
-  Layers,
-  Users,
-  Compass,
-  Zap,
-  Palette,
-  Monitor,
+  Shield,
   ArrowUpRight,
   PhoneCall,
   Calendar,
-  Flame,
+  ArrowLeft,
+  ArrowRight,
 } from 'lucide-react';
 import {
   BUSINESS_INFO,
   SERVICE_ITEMS,
-  ServiceItem,
   ServiceCategoryFilter,
   filterServicesByCategory,
 } from '../data/barbershopData';
-import { ShaderCard, ShaderCardFeature, ShaderFlameTheme } from './ShaderCard';
+import './ServicesSection.css';
+import { SalonServiceIcon } from './SalonServiceIcon';
 
 const CATEGORY_TABS: { id: ServiceCategoryFilter; label: string }[] = [
   { id: 'all', label: 'All Services (6)' },
@@ -30,63 +23,21 @@ const CATEGORY_TABS: { id: ServiceCategoryFilter; label: string }[] = [
   { id: 'specialty', label: 'Kids & Groom Packages' },
 ];
 
-function getServiceShaderFeatures(service: ServiceItem): ShaderCardFeature[] {
-  switch (service.id) {
-    case 'classic-modern-haircuts':
-      return [
-        { icon: <Zap className="w-4 h-4" />, label: 'Tailored to face & crown shape' },
-        { icon: <Palette className="w-4 h-4" />, label: 'Custom textured scissor & clipper cut' },
-        { icon: <Layers className="w-4 h-4" />, label: 'Clean neckline & sideburn taper' },
-        { icon: <Monitor className="w-4 h-4" />, label: 'Hair wash & blow-dry styling finish' },
-      ];
-    case 'skin-taper-fades':
-      return [
-        { icon: <Zap className="w-4 h-4" />, label: 'Seamless zero-gap skin & drop fades' },
-        { icon: <Palette className="w-4 h-4" />, label: 'Custom low, mid, or high fade blend' },
-        { icon: <Layers className="w-4 h-4" />, label: 'Crisp straight-razor hairline lineup' },
-        { icon: <Sparkles className="w-4 h-4" />, label: 'Balanced grow-out contour detailing' },
-      ];
-    case 'beard-trim-grooming':
-      return [
-        { icon: <Zap className="w-4 h-4" />, label: 'Precision beard sculpting & tapering' },
-        { icon: <Palette className="w-4 h-4" />, label: 'Sharp cheek & jawline razor lineup' },
-        { icon: <Shield className="w-4 h-4" />, label: 'Relaxing hot-towel royal shave care' },
-        { icon: <Sparkles className="w-4 h-4" />, label: 'Nourishing beard oil & balm finish' },
-      ];
-    case 'haircut-beard-combo':
-      return [
-        { icon: <Zap className="w-4 h-4" />, label: 'Complete haircut + beard in 1 session' },
-        { icon: <Palette className="w-4 h-4" />, label: 'Connected fade-to-beard transition' },
-        { icon: <Layers className="w-4 h-4" />, label: 'Razor detailing & refreshing hair wash' },
-        { icon: <Monitor className="w-4 h-4" />, label: 'Ready for events & daily confidence' },
-      ];
-    case 'kids-family-cuts':
-      return [
-        { icon: <Zap className="w-4 h-4" />, label: 'Patient, friendly Rajkot stylists' },
-        { icon: <Palette className="w-4 h-4" />, label: 'School-ready & trendy youth styles' },
-        { icon: <Users className="w-4 h-4" />, label: 'Comfortable hygienic AC salon chair' },
-        { icon: <Sparkles className="w-4 h-4" />, label: 'Gentle clipper & scissor detailing' },
-      ];
-    case 'consultation-lineup':
-    default:
-      return [
-        { icon: <Zap className="w-4 h-4" />, label: 'Men’s de-tan & charcoal facial glow' },
-        { icon: <Palette className="w-4 h-4" />, label: 'Custom wedding & festive groom prep' },
-        { icon: <Compass className="w-4 h-4" />, label: '1-on-1 hairstyle & beard consultation' },
-        { icon: <Sparkles className="w-4 h-4" />, label: 'Relaxing head massage & hair spa' },
-      ];
-  }
-}
-
-function formatShaderTitle(rawTitle: string): string {
-  return rawTitle
-    .toLowerCase()
-    .replace(/(?:^|\s|-)\S/g, (char) => char.toUpperCase());
-}
+const SERVICE_VISUALS: Record<string, { image: string; alt: string; title: string; detail: string; tags: string[]; word: string }> = {
+  'classic-modern-haircuts': { image: 'haircut', alt: '3D man showing a freshly styled textured quiff', title: 'Haircuts & Restyling', detail: 'A cut shaped around your face, your texture and your everyday style.', tags: ['Scissor craft', 'Styled finish'], word: 'FRESH' },
+  'skin-taper-fades': { image: 'fade', alt: '3D man showing a clean skin fade and textured top', title: 'Fades & Tapers', detail: 'Seamless blends, crisp edges and a fade that looks sharp from every angle.', tags: ['Skin fade', 'Clean lineup'], word: 'SHARP' },
+  'beard-trim-grooming': { image: 'beard', alt: '3D man with a sculpted beard holding a beard comb', title: 'Beard & Royal Shave', detail: 'A balanced beard, a precise lineup and a little hot-towel luxury.', tags: ['Beard sculpt', 'Hot towel'], word: 'REFINED' },
+  'haircut-beard-combo': { image: 'combo', alt: '3D man with a coordinated fresh haircut and shaped beard', title: 'The Complete Look', detail: 'Haircut, fade and beard detailing, brought together in one fresh session.', tags: ['Cut + beard', 'Full refresh'], word: 'COMPLETE' },
+  'kids-family-cuts': { image: 'kids', alt: 'Cheerful 3D boy with a neat short haircut giving a thumbs up', title: 'Little Legends', detail: 'Patient hands, happy faces and school-ready styles for our younger guests.', tags: ['Kids & teens', 'Gentle styling'], word: 'HAPPY' },
+  'consultation-lineup': { image: 'facial', alt: '3D man enjoying a charcoal facial treatment and holding a towel', title: 'Skin & Groom Rituals', detail: 'De-tan, charcoal facials and thoughtful grooming for your next big moment.', tags: ['Skin refresh', 'Groom prep'], word: 'GLOW' },
+};
 
 export const ServicesSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategoryFilter>('all');
-  const [flameTheme, setFlameTheme] = useState<ShaderFlameTheme>('gold');
+  const [activeCard, setActiveCard] = useState(0);
+  const [dragX, setDragX] = useState(0);
+  const touchStart = React.useRef<{ x: number; y: number } | null>(null);
+  const didSwipe = React.useRef(false);
   const visibleServices = filterServicesByCategory(SERVICE_ITEMS, selectedCategory);
 
   return (
@@ -102,7 +53,7 @@ export const ServicesSection: React.FC = () => {
       />
 
       <div className="relative z-10 mx-auto max-w-[1280px] px-5 sm:px-8 lg:px-12">
-        {/* Section Header + Category Filter Bar + Flame Shader Theme Toggle */}
+        {/* Section Header + Category Filter Bar */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
           <div>
             <div className="inline-flex items-center gap-2.5 mb-3">
@@ -122,39 +73,7 @@ export const ServicesSection: React.FC = () => {
             </h2>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
-            {/* Shader Flame Theme Switcher (Default Royal Gold vs Violet) */}
-            <div
-              role="group"
-              aria-label="Shader flame color theme"
-              className="inline-flex items-center justify-center gap-1 rounded-xl sm:rounded-full border border-[#DFAF63]/25 bg-[#140F0C] p-1 self-start sm:self-auto"
-            >
-              <button
-                type="button"
-                onClick={() => setFlameTheme('gold')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg sm:rounded-full text-[11px] font-semibold transition-all cursor-pointer ${
-                  flameTheme === 'gold'
-                    ? 'bg-gradient-to-r from-[#E8C27A] to-[#C58E3D] text-[#090705] shadow-[0_4px_14px_rgba(223,175,99,0.35)]'
-                    : 'text-[#C9B8A6] hover:text-white'
-                }`}
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Gold Flame</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setFlameTheme('violet')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg sm:rounded-full text-[11px] font-semibold transition-all cursor-pointer ${
-                  flameTheme === 'violet'
-                    ? 'bg-[#9333EA] text-white shadow-[0_4px_14px_rgba(147,51,234,0.45)]'
-                    : 'text-[#C9B8A6] hover:text-white'
-                }`}
-              >
-                <Flame className="w-3.5 h-3.5" />
-                <span>Violet Flame</span>
-              </button>
-            </div>
-
+          <div className="hidden md:flex md:flex-wrap items-center gap-3">
             {/* Sleek Category Filter Bar — 2x2 Rounded Grid on Mobile, Pill Bar on sm+ */}
             <div
               role="tablist"
@@ -169,7 +88,7 @@ export const ServicesSection: React.FC = () => {
                     role="tab"
                     aria-selected={isActive}
                     type="button"
-                    onClick={() => setSelectedCategory(tab.id)}
+                    onClick={() => { setSelectedCategory(tab.id); setActiveCard(0); setDragX(0); }}
                     className={`px-3 py-2.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-semibold tracking-[0.03em] sm:tracking-[0.06em] text-center transition-all cursor-pointer focus-ring ${
                       isActive
                         ? 'bg-gradient-to-r from-[#E8C27A] via-[#DFAF63] to-[#C58E3D] text-[#090705] shadow-[0_4px_16px_rgba(223,175,99,0.3)]'
@@ -184,28 +103,87 @@ export const ServicesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 3x2 Animated WebGL Shader Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        {/* Character-led service cards, with mobile swipe navigation. */}
+        <div
+          className="service-deck grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7"
+          data-dragging={dragX !== 0}
+          role="region"
+          aria-label="Services — swipe left or right on mobile"
+          onTouchStart={(event) => {
+            touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+            didSwipe.current = false;
+          }}
+          onTouchMove={(event) => {
+            if (!touchStart.current) return;
+            const dx = event.touches[0].clientX - touchStart.current.x;
+            const dy = event.touches[0].clientY - touchStart.current.y;
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+              didSwipe.current = true;
+              setDragX(Math.max(-110, Math.min(110, dx)));
+            }
+          }}
+          onTouchEnd={() => {
+            if (Math.abs(dragX) > 40) setActiveCard((current) => (current + (dragX < 0 ? 1 : -1) + visibleServices.length) % visibleServices.length);
+            setDragX(0);
+            touchStart.current = null;
+          }}
+          onTouchCancel={() => { setDragX(0); touchStart.current = null; }}
+          onClickCapture={(event) => {
+            if (didSwipe.current) { event.preventDefault(); event.stopPropagation(); }
+          }}
+        >
           {visibleServices.map((service, index) => {
             const isFeatured = Boolean(service.featuredOrangeCard);
-            const serviceNumber = `0${index + 1}`;
+            const visual = SERVICE_VISUALS[service.id];
+            const offset = (index - activeCard + visibleServices.length) % visibleServices.length;
+            const position = offset > visibleServices.length / 2 ? offset - visibleServices.length : offset;
             return (
-              <ShaderCard
+              <div
                 key={service.id}
-                badge={`SERVICE ${serviceNumber}`}
-                isSignature={isFeatured}
-                title={formatShaderTitle(service.title)}
-                description={service.description}
-                features={getServiceShaderFeatures(service)}
-                ctaLabel="Explore & Book"
-                ctaHref={BUSINESS_INFO.bookingUrl}
-                secondaryLabel={`Call Salon (${BUSINESS_INFO.phoneDisplay})`}
-                secondaryHref={BUSINESS_INFO.phoneHref}
-                flameTheme={flameTheme}
-                phaseOffset={index * 1.35}
-              />
+                className="service-deck-card"
+                data-active={position === 0}
+                data-visible={Math.abs(position) <= 1}
+                style={{
+                  '--deck-position': position,
+                  '--deck-depth': Math.abs(position),
+                  '--deck-drag': `${dragX}px`,
+                  '--deck-tilt': `${position === 0 ? dragX / 35 : 0}deg`,
+                  '--deck-opacity': position === 0 ? 1 : 0.6,
+                  zIndex: visibleServices.length - Math.abs(position),
+                } as React.CSSProperties}
+              >
+              <article className="service-character-card" data-featured={isFeatured}>
+                <div className="service-character-card__stage">
+                  <div className="service-character-card__arch" aria-hidden="true"><span>{visual.word}</span></div>
+                  <span className="service-character-card__spark" aria-hidden="true"><SalonServiceIcon serviceId={service.id} /></span>
+                  <img src={`/assets/characters/services/${visual.image}.png`} alt={visual.alt} loading="lazy" decoding="async" draggable={false} width="1024" height="1024" />
+                  {isFeatured && <span className="service-character-card__signature">THE SIGNATURE CUT</span>}
+                </div>
+                <div className="service-character-card__body">
+                  <div className="service-character-card__eyebrow"><span>SERVICE {service.indexLabel}</span><span><SalonServiceIcon serviceId={service.id} size={15} /></span></div>
+                  <h3>{visual.title}</h3>
+                  <p>{visual.detail}</p>
+                  <div className="service-character-card__tags">{visual.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+                  <div className="service-character-card__actions"><a href={`${BUSINESS_INFO.bookingUrl}?text=${encodeURIComponent('Hi Classic Cut Salon, I would like to book ' + visual.title + '.')}`} target="_blank" rel="noopener noreferrer">Book this look <ArrowUpRight size={16} /></a><a href={BUSINESS_INFO.phoneHref} aria-label={`Call for ${visual.title} pricing`}>Call for pricing</a></div>
+                </div>
+              </article>
+
+              </div>
             );
           })}
+        </div>
+
+        <div className="mt-7 flex flex-col items-center gap-4 md:hidden">
+          <div className="flex items-center gap-4">
+            <button type="button" aria-label="Previous service" onClick={() => setActiveCard((activeCard - 1 + visibleServices.length) % visibleServices.length)} className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#DFAF63]/30 text-[#E5B96F] focus-ring"><ArrowLeft size={18} strokeWidth={1.5} aria-hidden="true" /></button>
+            <div className="flex items-center gap-2" aria-label="Choose a service">
+              {visibleServices.map((service, index) => (
+                <button key={service.id} type="button" aria-label={`Show ${service.title}`} aria-pressed={activeCard === index} onClick={() => setActiveCard(index)} className={`h-2 rounded-full transition-all duration-300 focus-ring ${activeCard === index ? 'w-7 bg-[#E5B96F]' : 'w-2 bg-[#DFAF63]/25'}`} />
+              ))}
+            </div>
+            <button type="button" aria-label="Next service" onClick={() => setActiveCard((activeCard + 1) % visibleServices.length)} className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#DFAF63]/30 text-[#E5B96F] focus-ring"><ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" /></button>
+          </div>
+          <p className="text-[10px] uppercase tracking-[0.24em] text-[#C9B8A6]" aria-live="polite">Swipe to explore · {activeCard + 1} / {visibleServices.length}</p>
         </div>
 
         {/* Bottom Custom Consultation & Direct Booking Strip */}

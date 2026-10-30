@@ -8,6 +8,7 @@ export interface ShaderCardFeature {
 }
 
 export interface ShaderCardProps {
+  effectOnly?: boolean;
   badge?: string;
   isSignature?: boolean;
   title: string;
@@ -148,6 +149,7 @@ const FRAGMENT_SHADER_SOURCE = `
 `;
 
 export const ShaderCard: React.FC<ShaderCardProps> = ({
+  effectOnly = false,
   badge,
   isSignature = false,
   title,
@@ -345,6 +347,10 @@ export const ShaderCard: React.FC<ShaderCardProps> = ({
     mouseTargetRef.current = { x: 0.5, y: 0.5 };
     setTilt({ rx: 0, ry: 0 });
   };
+
+  if (effectOnly) {
+    return <canvas ref={canvasRef} width={280} height={180} aria-hidden="true" className={className} />;
+  }
 
   return (
     <article

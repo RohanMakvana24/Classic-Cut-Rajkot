@@ -1,0 +1,79 @@
+﻿.salon-footer { --footer-bg: #100d09; --footer-ink: #f7ecda; --footer-muted: #ac9a82; --footer-gold: #deb77a; --footer-line: #b9986a33; position: relative; overflow: hidden; background: var(--footer-bg); color: var(--footer-ink); border-top: 1px solid var(--footer-line); }
+html[data-theme='light'] .salon-footer { --footer-bg: #faf6ee; --footer-ink: #2d2318; --footer-muted: #7c6a56; --footer-gold: #966c35; --footer-line: #ad8c5e3d; }
+.salon-footer__inner { max-width: 1360px; margin-inline: auto; padding: 64px 40px 0; }
+.salon-footer__invitation { display: flex; align-items: end; justify-content: space-between; gap: 35px; padding-bottom: 49px; border-bottom: 1px solid var(--footer-line); }
+.salon-footer__eyebrow { color: var(--footer-gold); font-size: 8px; font-weight: 600; letter-spacing: .23em; line-height: 1.8; }
+.salon-footer__invitation h2 { font-family: var(--font-display); color: var(--footer-ink); font-size: clamp(37px, 4.5vw, 62px); font-weight: 500; line-height: 1.05; letter-spacing: -.045em; margin-top: 21px; }
+.salon-footer__invitation h2 > span { color: var(--footer-muted); }
+.salon-footer__book { display: flex; align-items: center; gap: 24px; color: var(--footer-ink); border-bottom: 1px solid var(--footer-line); padding-bottom: 13px; }
+.salon-footer__book > span:first-child { display: inline-flex; align-items: center; gap: 10px; font-size: 9px; font-weight: 600; letter-spacing: .09em; }
+.salon-footer__book-arrow { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: #dfb779; color: #2c2013; transition: transform .25s, background-color .25s; }
+.salon-footer__book:hover .salon-footer__book-arrow { background: #f1d4a2; transform: rotate(45deg); }
+.salon-footer__grid { display: grid; grid-template-columns: 1.15fr 1.1fr 1fr; gap: 52px; padding: 47px 0 48px; }
+.salon-footer__brand > p { color: var(--footer-muted); font-size: 11px; line-height: 1.9; margin-top: 20px; }
+.salon-footer__logo { gap: 13px; }
+.salon-footer__logo > img { width: 47px; height: 51px; object-fit: contain; flex-shrink: 0; }
+.salon-footer__logo > span > span:first-child > span:first-child { color: var(--footer-ink); }
+.salon-footer__logo > span > span:first-child > span:last-child { color: var(--footer-gold); }
+.salon-footer__logo > span > span:last-child > span:nth-child(2) { color: var(--footer-muted); }
+.salon-footer__local { display: inline-flex; align-items: center; gap: 8px; color: var(--footer-gold); font-size: 7px; letter-spacing: .16em; margin-top: 19px; }
+.salon-footer__local > span { width: 4px; height: 4px; border-radius: 50%; background: var(--footer-gold); }
+.salon-footer__grid h3 { font-size: 8px; font-weight: 600; color: var(--footer-gold); letter-spacing: .19em; margin: 6px 0 22px; }
+.salon-footer__explore > div { display: grid; grid-template-columns: 1fr 1fr; gap: 17px 24px; }
+.salon-footer__explore a { display: inline-flex; align-items: center; justify-content: space-between; gap: 7px; font-size: 11px; color: var(--footer-ink); transition: color .2s; }
+.salon-footer__explore a > svg { opacity: 0; transition: opacity .2s; }
+.salon-footer__explore a:hover, .salon-footer__connect a:hover { color: var(--footer-gold); }
+.salon-footer__explore a:hover > svg, .salon-footer__explore a:focus-visible > svg { opacity: 1; }
+.salon-footer__connect { min-width: 0; }
+.salon-footer__connect > a { display: flex; align-items: start; gap: 9px; font-size: 10px; line-height: 1.8; color: var(--footer-ink); margin-top: 15px; }
+.salon-footer__connect > a > svg { flex-shrink: 0; margin-top: 3px; color: var(--footer-gold); }
+.salon-footer__connect > a > svg:last-child { margin-left: auto; opacity: .5; }
+.salon-footer__wordmark { display: block; padding: 18px 0 22px; border-top: 1px solid var(--footer-line); color: var(--footer-ink); }
+.salon-footer__wordmark > svg { display: block; width: 100%; height: auto; overflow: visible; }
+.salon-footer__wordmark text { font-family: var(--font-display); font-size: 188px; font-weight: 650; letter-spacing: -.05em; }
+.salon-footer__wordmark-stop-one { stop-color: #e5c38b; }
+.salon-footer__wordmark-stop-two { stop-color: #f7e9cf; }
+.salon-footer__wordmark-stop-three { stop-color: #967243; }
+html[data-theme='light'] .salon-footer__wordmark-stop-one { stop-color: #423020; }
+html[data-theme='light'] .salon-footer__wordmark-stop-two { stop-color: #8d6635; }
+html[data-theme='light'] .salon-footer__wordmark-stop-three { stop-color: #b78b50; }
+.salon-footer__wordmark-caption { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 18px; font-size: 7px; font-weight: 500; letter-spacing: .22em; color: var(--footer-muted); }
+.salon-footer__bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 21px 0 26px; border-top: 1px solid var(--footer-line); color: var(--footer-muted); font-size: 9px; line-height: 1.7; }
+.salon-footer__bottom > span { font-size: 8px; }
+.salon-footer__bottom > a { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; color: var(--footer-ink); }
+.salon-footer a:focus-visible { outline: 2px solid var(--footer-gold); outline-offset: 5px; border-radius: 4px; }
+@media (max-width: 1050px) { .salon-footer__grid { gap: 30px; grid-template-columns: 1fr 1fr; } .salon-footer__brand { grid-column: 1 / -1; } .salon-footer__connect { max-width: 330px; } }
+@media (max-width: 640px) {
+  .salon-footer__inner { padding: 44px 20px 0; }
+  .salon-footer__invitation { flex-direction: column; align-items: start; gap: 25px; padding-bottom: 30px; }
+  .salon-footer__eyebrow { font-size: 7px; letter-spacing: .15em; }
+  .salon-footer__invitation h2 { font-size: clamp(34px, 9.2vw, 47px); margin-top: 16px; }
+  .salon-footer__book { width: 100%; justify-content: space-between; padding-bottom: 0; border-bottom: 0; }
+  .salon-footer__book-arrow { width: 43px; height: 43px; }
+  .salon-footer__book > span:first-child { font-size: 8px; }
+  .salon-footer__grid { gap: 30px 23px; padding: 31px 0; grid-template-columns: 1fr 1fr; }
+  .salon-footer__logo > img { width: 40px; height: 44px; }
+  .salon-footer__brand > p { margin-top: 15px; font-size: 11px; }
+  .salon-footer__local { font-size: 7px; margin-top: 15px; }
+  .salon-footer__grid h3 { font-size: 7px; margin-bottom: 17px; letter-spacing: .14em; }
+  .salon-footer__explore > div { grid-template-columns: 1fr; gap: 13px; }
+  .salon-footer__explore a { font-size: 10px; }
+  .salon-footer__connect > a { font-size: 9px; gap: 6px; overflow-wrap: anywhere; }
+  .salon-footer__connect > a > svg:last-child { display: none; }
+  .salon-footer__connect > a > svg:first-child { width: 12px; height: 12px; }
+  .salon-footer__wordmark { padding: 15px 0 17px; }
+  .salon-footer__wordmark-caption { font-size: 5px; letter-spacing: .12em; gap: 8px; margin-top: 12px; }
+  .salon-footer__wordmark-caption > span:nth-child(2) { display: none; }
+  .salon-footer__bottom { display: grid; grid-template-columns: 1fr auto; gap: 9px; padding: 17px 0 24px; font-size: 8px; }
+  .salon-footer__bottom > span { grid-column: 1; grid-row: 2; font-size: 7px; }
+  .salon-footer__bottom > a { grid-row: 1 / 3; grid-column: 2; font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .salon-footer * { transition: none !important; } }
+
+/* Keep the monogram visible on both footer surfaces. */
+.salon-footer .salon-footer__logo > img {
+  filter: brightness(0) saturate(100%) invert(78%) sepia(28%) saturate(635%) hue-rotate(351deg) brightness(96%) contrast(88%) !important;
+}
+html[data-theme='light'] .salon-footer .salon-footer__logo > img {
+  filter: brightness(0) saturate(100%) invert(37%) sepia(64%) saturate(1010%) hue-rotate(359deg) brightness(86%) contrast(91%) !important;
+}

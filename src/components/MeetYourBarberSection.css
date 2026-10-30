@@ -1,0 +1,84 @@
+﻿.meet-salon { --meet-bg: #0c0907; --meet-ink: #f5ecdf; --meet-muted: #b1a18e; --meet-gold: #e0b675; --meet-panel: #17120e; --meet-line: #cda3632d; padding: 88px 24px; background: var(--meet-bg); color: var(--meet-ink); border-bottom: 1px solid var(--meet-line); }
+html[data-theme='light'] .meet-salon { --meet-bg: #faf6ee; --meet-ink: #2f2319; --meet-muted: #7a6856; --meet-gold: #926733; --meet-panel: #fffdf7; --meet-line: #b58b5333; }
+.meet-salon__inner { max-width: 1180px; margin-inline: auto; }
+.meet-salon__header { display: flex; justify-content: space-between; align-items: end; gap: 24px; }
+.meet-salon__eyebrow { color: var(--meet-gold); font-size: 9px; letter-spacing: .21em; font-weight: 600; line-height: 1.7; }
+.meet-salon__header h2 { margin-top: 10px; font-family: var(--font-display); font-size: clamp(34px, 4.3vw, 54px); font-weight: 550; letter-spacing: -.04em; line-height: 1.05; }
+.meet-salon__header h2 span { color: var(--meet-gold); }
+.meet-salon__instagram { display: inline-flex; align-items: center; gap: 9px; font-size: 10px; padding: 11px 14px; border: 1px solid var(--meet-line); border-radius: 99px; color: var(--meet-ink); transition: background-color .2s; }
+.meet-salon__instagram:hover { background: var(--meet-panel); }
+.meet-salon__story { display: grid; grid-template-columns: 1fr 1.05fr; gap: 55px; align-items: center; margin-top: 25px; }
+.meet-salon__copy { padding: 28px 0; }
+.meet-salon__place { display: inline-flex; align-items: center; gap: 8px; font-size: 8px; font-weight: 600; letter-spacing: .2em; color: var(--meet-muted); }
+.meet-salon__place > span { width: 5px; height: 5px; border-radius: 50%; background: var(--meet-gold); }
+.meet-salon__copy h3 { margin: 23px 0; font-family: var(--font-display); font-size: clamp(42px, 5vw, 70px); font-weight: 550; letter-spacing: -.045em; line-height: 1.02; }
+.meet-salon__copy h3 > span { color: var(--meet-gold); }
+.meet-salon__copy > p { color: var(--meet-muted); font-size: 13px; line-height: 1.85; max-width: 365px; margin-top: 13px; }
+.meet-salon__craft { display: flex; gap: 22px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--meet-line); }
+.meet-salon__craft > div { display: flex; flex-direction: column; align-items: start; gap: 10px; }
+.meet-salon__craft > div > span { color: var(--meet-gold); }
+.meet-salon__craft strong { display: block; color: var(--meet-ink); font-size: 10px; font-weight: 600; }
+.meet-salon__craft p { color: var(--meet-muted); font-size: 8px; line-height: 1.7; margin-top: 4px; }
+.meet-salon__stage { position: relative; height: 540px; isolation: isolate; }
+.meet-salon__arch { position: absolute; inset: 48px 25px 47px 48px; border-radius: 220px 220px 20px 20px; background: linear-gradient(150deg, #d5b78b, #b28a58); overflow: hidden; }
+.meet-salon__arch > span { position: absolute; top: 50px; left: 24px; color: #fff0d528; font-family: var(--font-display); font-size: 89px; line-height: .9; font-weight: 800; letter-spacing: -.055em; }
+.meet-salon__stage > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; filter: drop-shadow(0 15px 12px #29180830); }
+.meet-salon__floor { position: absolute; left: 20%; right: 10%; bottom: 31px; height: 35px; border-radius: 50%; background: #8c5e3025; filter: blur(9px); }
+.meet-salon__orbit { position: absolute; border: 1px solid var(--meet-line); border-radius: 50%; z-index: -1; }
+.meet-salon__orbit--one { width: 440px; height: 440px; top: 45px; left: 0; }
+.meet-salon__orbit--two { width: 360px; height: 360px; top: 85px; left: 40px; }
+.meet-salon__sticker { position: absolute; right: 0; top: 135px; z-index: 3; padding: 13px 16px; border-radius: 11px; background: #fff6e9; color: #6b4a28; font-size: 9px; line-height: 1.7; box-shadow: 0 7px 26px #2e1b1020; transform: rotate(5deg); }
+.meet-salon__sticker > svg { margin-bottom: 5px; }
+.meet-salon__sticker strong { font-weight: 600; }
+.meet-salon__stage-caption { position: absolute; bottom: 0; left: 0; right: 0; text-align: center; font-size: 8px; font-weight: 600; letter-spacing: .18em; color: var(--meet-muted); }
+.meet-salon__stage-caption > span { color: var(--meet-gold); margin-inline: 13px; }
+.meet-salon__planner { display: grid; grid-template-columns: 1fr 1fr; margin-top: 30px; border: 1px solid var(--meet-line); border-radius: 22px; background: var(--meet-panel); }
+.meet-salon__services, .meet-salon__booking { padding: 29px 32px; }
+.meet-salon__booking { border-left: 1px solid var(--meet-line); }
+.meet-salon__planner-title { display: flex; align-items: center; gap: 13px; }
+.meet-salon__step { display: grid; place-items: center; flex-shrink: 0; height: 33px; width: 33px; border-radius: 50%; border: 1px solid var(--meet-line); color: var(--meet-gold); font-size: 9px; }
+.meet-salon__planner h3 { color: var(--meet-ink); font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+.meet-salon__planner-title p { margin-top: 4px; color: var(--meet-muted); font-size: 10px; line-height: 1.7; }
+.meet-salon__topics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 22px; }
+.meet-salon__topics button { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 10px 12px; border: 1px solid var(--meet-line); border-radius: 10px; color: var(--meet-muted); font-size: 10px; font-weight: 500; text-align: left; transition: background-color .2s, border-color .2s; cursor: pointer; }
+.meet-salon__topics button[aria-pressed='true'] { background: #c69a5420; border-color: var(--meet-gold); color: var(--meet-ink); }
+.meet-salon__checkbox { display: grid; place-items: center; width: 16px; height: 16px; flex-shrink: 0; border-radius: 4px; border: 1px solid var(--meet-line); }
+.meet-salon__topics button[aria-pressed='true'] .meet-salon__checkbox { background: #e0b675; color: #251a10; border-color: #e0b675; }
+.meet-salon__selected { display: block; font-size: 9px; color: var(--meet-muted); margin-top: 12px; }
+.meet-salon__note { color: var(--meet-muted); font-size: 11px; line-height: 1.9; margin: 19px 0; min-height: 44px; }
+.meet-salon__actions { display: flex; gap: 10px; }
+.meet-salon__actions button, .meet-salon__actions a { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 45px; padding: 12px 16px; border-radius: 10px; font-size: 10px; font-weight: 600; cursor: pointer; }
+.meet-salon__actions button { border: 1px solid var(--meet-line); color: var(--meet-gold); }
+.meet-salon__actions a { flex: 1; background: #e5b96f; color: #251a10; transition: background-color .2s; }
+.meet-salon__actions a:hover { background: #f1d09a; }
+.meet-salon__copy-error { font-size: 10px; color: var(--meet-muted); margin-top: 10px; }
+.meet-salon button:focus-visible, .meet-salon a:focus-visible { outline: 2px solid var(--meet-gold); outline-offset: 4px; }
+@media (max-width: 900px) { .meet-salon__story { gap: 20px; } .meet-salon__stage { height: 460px; } .meet-salon__sticker { right: -5px; top: 130px; padding: 10px; font-size: 8px; } .meet-salon__orbit--one { width: 320px; height: 320px; top: 80px; } .meet-salon__orbit--two { width: 270px; height: 270px; left: 25px; top: 105px; } .meet-salon__arch { inset: 55px 5px 40px 15px; } .meet-salon__arch > span { font-size: 70px; } .meet-salon__services, .meet-salon__booking { padding: 24px; } .meet-salon__actions { flex-wrap: wrap; } }
+@media (max-width: 640px) {
+  .meet-salon { padding: 52px 20px; }
+  .meet-salon__header { align-items: start; flex-direction: column; gap: 15px; }
+  .meet-salon__eyebrow { font-size: 8px; }
+  .meet-salon__instagram { font-size: 9px; padding: 8px 11px; }
+  .meet-salon__story { grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  .meet-salon__stage { grid-row: 1; height: 360px; max-width: 390px; width: 100%; margin-inline: auto; }
+  .meet-salon__arch { inset: 36px 15px 29px; }
+  .meet-salon__arch > span { font-size: 64px; top: 35px; left: 18px; }
+  .meet-salon__orbit--one { width: 290px; height: 290px; top: 30px; left: calc(50% - 145px); }
+  .meet-salon__orbit--two { width: 240px; height: 240px; top: 55px; left: calc(50% - 120px); }
+  .meet-salon__sticker { right: 0; top: 84px; font-size: 7px; padding: 9px; }
+  .meet-salon__stage-caption { font-size: 7px; letter-spacing: .13em; }
+  .meet-salon__copy { padding: 17px 0 0; }
+  .meet-salon__copy h3 { font-size: 43px; margin: 15px 0 17px; }
+  .meet-salon__copy > p { font-size: 12px; margin-top: 10px; max-width: none; }
+  .meet-salon__craft { gap: 12px; justify-content: space-between; padding-top: 20px; margin-top: 24px; }
+  .meet-salon__craft strong { font-size: 9px; }
+  .meet-salon__craft p { font-size: 8px; }
+  .meet-salon__planner { grid-template-columns: 1fr; margin-top: 27px; border-radius: 17px; }
+  .meet-salon__services, .meet-salon__booking { padding: 22px 18px; }
+  .meet-salon__booking { border-left: 0; border-top: 1px solid var(--meet-line); }
+  .meet-salon__planner h3 { font-size: 15px; }
+  .meet-salon__planner-title { gap: 10px; }
+  .meet-salon__planner-title p { font-size: 9px; }
+  .meet-salon__topics button { padding: 9px; font-size: 9px; gap: 7px; }
+  .meet-salon__actions button, .meet-salon__actions a { padding: 11px; font-size: 9px; }
+}

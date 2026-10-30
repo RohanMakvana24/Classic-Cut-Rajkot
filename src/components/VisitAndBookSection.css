@@ -1,0 +1,102 @@
+﻿.salon-visit { --visit-bg: #0c0907; --visit-panel: #18120d; --visit-ink: #f7efe2; --visit-muted: #bcac99; --visit-line: #dfaf6330; --visit-gold: #e5b96f; background: var(--visit-bg); padding: 88px max(20px, calc((100vw - 1280px) / 2)); color: var(--visit-ink); }
+html[data-theme='light'] .salon-visit { --visit-bg: #faf6ee; --visit-panel: #fffdf8; --visit-ink: #2d2118; --visit-muted: #75634f; --visit-line: #9b783830; --visit-gold: #88602b; }
+.salon-visit__heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+.salon-visit__eyebrow { font-size: 9px; font-weight: 600; letter-spacing: .22em; line-height: 1.7; color: var(--visit-gold); }
+.salon-visit__heading h2 { font-family: var(--font-display); font-size: clamp(36px, 5vw, 56px); line-height: 1.1; margin-top: 10px; font-weight: 600; letter-spacing: -.03em; }
+.salon-visit__heading h2 span { color: var(--visit-gold); }
+.salon-visit__heading > p { color: var(--visit-muted); font-size: 13px; line-height: 1.8; }
+.salon-location { position: relative; height: 620px; border-radius: 24px; overflow: hidden; isolation: isolate; background: #ede3d3; border: 1px solid var(--visit-line); }
+.salon-location__visual, .salon-location__world, .salon-location__world > img, .salon-location__live, .salon-location__live iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+.salon-location__world { transform-origin: 67% 53%; transition: transform .7s cubic-bezier(.22, 1, .36, 1); }
+.salon-location__world > img { object-fit: cover; object-position: 60% center; }
+.salon-location__veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, #f8f3e9f2, #f8f3e9b8 18%, transparent 48%), linear-gradient(0deg, #f8f3e97a, transparent 15%); }
+.salon-location__intro { position: absolute; left: 34px; top: 50px; max-width: 260px; color: #281d15; }
+.salon-location__intro .salon-visit__eyebrow { color: #75502a; font-size: 8px; }
+.salon-location__intro h3 { font-family: var(--font-display); font-size: 48px; font-weight: 650; line-height: 1.02; letter-spacing: -.045em; margin: 15px 0 18px; }
+.salon-location__intro > p:not(.salon-visit__eyebrow) { color: #695844; font-size: 12px; line-height: 1.7; margin-bottom: 22px; }
+.salon-visit__button { display: inline-flex; justify-content: center; align-items: center; gap: 10px; padding: 14px 18px; border-radius: 10px; background: #e5b96f; color: #20160d; font-size: 11px; font-weight: 700; transition: background-color .2s, box-shadow .2s; }
+.salon-location__intro .salon-visit__button { background: #2d2118; color: #fff4df; }
+.salon-visit__button:hover { box-shadow: 0 6px 24px #8b622b30; background: #f1cf96; }
+.salon-location__intro .salon-visit__button:hover { background: #503823; }
+.salon-location__shop { position: absolute; right: 24px; top: 24px; width: 232px; padding: 10px; background: #fffcf6f5; color: #2d2118; border: 1px solid #fff8ed; border-radius: 16px; box-shadow: 0 12px 32px #3a251825; transition: transform .25s; }
+.salon-location__shop:hover { transform: translateY(-3px); }
+.salon-location__shop-photo { height: 115px; border-radius: 9px; overflow: hidden; }
+.salon-location__shop-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 80% 55%; transform: scale(1.65); }
+.salon-location__shop-info { display: flex; align-items: center; gap: 10px; justify-content: space-between; padding: 13px 3px 4px; }
+.salon-location__shop-info strong { font-size: 12px; }
+.salon-location__shop-info p { display: flex; gap: 5px; font-size: 9px; line-height: 1.7; color: #7b6852; margin-top: 5px; }
+.salon-location__shop-info p svg { flex-shrink: 0; margin-top: 2px; }
+.salon-location__shop-arrow { flex-shrink: 0; display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid #aa927b40; border-radius: 50%; }
+.salon-location__pin { position: absolute; left: 67%; top: 36%; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; color: #ffe2a3; filter: drop-shadow(0 4px 15px #70410a66); }
+.salon-location__pin > svg { width: 48px; height: 60px; fill: #e5b96f; stroke: #fff7dc; stroke-width: 1.5; animation: salon-pin-float 3.5s ease-in-out infinite; }
+.salon-location__pin-label { padding: 7px 11px; border-radius: 8px; background: #2b1e12eb; color: #fff0d6; font-size: 9px; font-weight: 700; letter-spacing: .13em; text-align: center; margin-bottom: 6px; }
+.salon-location__pin-label span { display: block; font-size: 6px; letter-spacing: .14em; font-weight: 400; color: #d4b47b; margin-top: 3px; }
+.salon-location__pin-ring { position: absolute; bottom: -5px; width: 46px; height: 13px; border: 1px solid #ffdb89; background: #edc37755; border-radius: 50%; box-shadow: 0 0 16px #ffd480; }
+.salon-location__zoom { position: absolute; right: 22px; bottom: 42px; display: flex; flex-direction: column; background: #fffbf2f5; border: 1px solid #b2957230; border-radius: 11px; overflow: hidden; box-shadow: 0 5px 16px #30221420; }
+.salon-location__zoom button { display: grid; place-items: center; width: 36px; height: 35px; color: #39291a; cursor: pointer; }
+.salon-location__zoom button + button { border-top: 1px solid #b2957225; }
+.salon-location__zoom button:hover { background: #f2e3ca; }
+.salon-location__zoom button:disabled { opacity: .35; cursor: default; }
+.salon-location__caption { position: absolute; left: 30px; bottom: 14px; font-size: 8px; color: #493625; background: #fff8e9c9; border-radius: 4px; padding: 3px 6px; }
+.salon-location__live iframe { border: 0; }
+.salon-visit__details { display: grid; grid-template-columns: 1fr 1.3fr; gap: 28px; margin-top: 24px; }
+.salon-visit__address, .salon-visit__booking { background: var(--visit-panel); border: 1px solid var(--visit-line); border-radius: 16px; padding: 26px; }
+.salon-visit__address { display: flex; align-items: start; gap: 15px; }
+.salon-visit__detail-icon { color: var(--visit-gold); padding-top: 2px; }
+.salon-visit__details h3 { color: var(--visit-ink); font-family: var(--font-display); font-size: 21px; line-height: 1.2; font-weight: 500; }
+.salon-visit__details p:not(.salon-visit__eyebrow) { color: var(--visit-muted); font-size: 11px; line-height: 1.8; margin-top: 9px; max-width: 330px; }
+.salon-visit__address button { display: inline-flex; align-items: center; gap: 7px; color: var(--visit-gold); font-size: 10px; margin-top: 13px; cursor: pointer; }
+.salon-visit__booking { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.salon-visit__booking h3 { margin-top: 7px; }
+.salon-visit__booking .salon-visit__eyebrow { font-size: 8px; }
+.salon-visit__actions { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.salon-visit__call { display: inline-flex; align-items: center; gap: 7px; font-size: 10px; color: var(--visit-ink); }
+.salon-visit a:focus-visible, .salon-visit button:focus-visible { outline: 2px solid #b78137; outline-offset: 4px; }
+@keyframes salon-pin-float { 50% { transform: translateY(-5px); } }
+@media (max-width: 1000px) { .salon-visit__details { grid-template-columns: 1fr; gap: 16px; } .salon-location__shop { width: 200px; } .salon-location__intro { max-width: 220px; } .salon-location__intro h3 { font-size: 42px; } }
+@media (max-width: 640px) {
+  .salon-visit { padding: 52px 16px; }
+  .salon-visit__heading { align-items: start; flex-direction: column; gap: 15px; margin-bottom: 24px; }
+  .salon-visit__heading > p { font-size: 12px; }
+  .salon-location { height: 650px; border-radius: 18px; }
+  .salon-location__visual { top: 160px; height: 400px; }
+  .salon-location__world > img { object-position: 66% center; }
+  .salon-location__veil { background: linear-gradient(180deg, #f8f3e9 0 23%, #f8f3e900 39% 72%, #f8f3e9 87%); }
+  .salon-location__intro { top: 23px; left: 22px; right: 22px; max-width: none; }
+  .salon-location__intro h3 { font-size: 34px; margin: 10px 0; }
+  .salon-location__intro h3 br { display: none; }
+  .salon-location__intro > p:not(.salon-visit__eyebrow) { font-size: 10px; line-height: 1.7; max-width: 170px; margin-bottom: 0; }
+  .salon-location__intro .salon-visit__button { position: absolute; right: 0; bottom: 0; padding: 12px; font-size: 10px; }
+  .salon-location__shop { top: auto; bottom: 74px; left: 16px; right: 16px; width: auto; display: flex; gap: 12px; padding: 9px; border-radius: 12px; }
+  .salon-location__shop-photo { width: 76px; height: 68px; flex-shrink: 0; }
+  .salon-location__shop-info { padding: 0; flex: 1; }
+  .salon-location__shop-info strong { font-size: 11px; }
+  .salon-location__shop-info p { font-size: 8px; }
+  .salon-location__pin { left: 64%; top: 38%; }
+  .salon-location__pin > svg { width: 37px; height: 46px; }
+  .salon-location__pin-label { font-size: 7px; }
+  .salon-location__caption { left: 17px; bottom: 7px; font-size: 6px; }
+  .salon-location__zoom { bottom: 180px; right: 14px; }
+  .salon-location__zoom button { width: 32px; height: 32px; }
+  .salon-visit__address, .salon-visit__booking { padding: 20px; }
+  .salon-visit__booking { flex-direction: column; align-items: stretch; }
+  .salon-visit__actions { align-items: stretch; }
+  .salon-visit__call { justify-content: center; padding: 5px; }
+}
+@media (prefers-reduced-motion: reduce) { .salon-location__pin > svg { animation: none; } .salon-location__world, .salon-location__shop { transition: none; } }
+
+@media (max-width: 640px) {
+  .salon-location { height: 715px; }
+  .salon-location__intro { top: 23px; left: 22px; right: 22px; }
+  .salon-location__intro h3 { font-size: clamp(29px, 8vw, 34px); line-height: 1.08; max-width: 310px; }
+  .salon-location__intro > p:not(.salon-visit__eyebrow) { max-width: none; font-size: 11px; line-height: 1.7; margin: 12px 0 15px; }
+  .salon-location__intro .salon-visit__button { position: static; width: auto; min-height: 44px; padding: 12px 18px; font-size: 11px; }
+  .salon-location__visual { top: 230px; height: 400px; }
+  .salon-location__veil { background: linear-gradient(180deg, #f8f3e9 0 31%, #f8f3e900 45% 75%, #f8f3e9 89%); }
+}
+
+@media (max-width: 640px) {
+.salon-location { height: 675px; }
+.salon-location__shop { bottom: 28px; }
+.salon-location__zoom { bottom: 133px; }
+}

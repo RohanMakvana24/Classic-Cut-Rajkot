@@ -119,11 +119,28 @@ const TrustedClientAvatars: React.FC = () => (
 
 export const CustomerReviewsSection: React.FC = () => {
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement | null>(null);
   const firstSetRef = useRef<HTMLDivElement | null>(null);
   const offsetRef = useRef<number>(0);
   const targetNudgeRef = useRef<number>(0);
+  const manualCenterRef = useRef<number | null>(null);
   const isPausedRef = useRef<boolean>(false);
   const [isPaused, setIsPaused] = useState(false);
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pauseReviews = () => {
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    setIsPaused(true);
+    isPausedRef.current = true;
+    targetNudgeRef.current = 0;
+    manualCenterRef.current = null;
+  };
+  const resumeReviews = () => {
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+    resumeTimerRef.current = setTimeout(() => { setIsPaused(false); isPausedRef.current = false; }, 1800);
+  };
+  useEffect(() => () => {
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
+  }, []);
 
   useEffect(() => {
     isPausedRef.current = isPaused;
@@ -135,16 +152,34 @@ export const CustomerReviewsSection: React.FC = () => {
     let isVisible = false;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const observer = new IntersectionObserver(
-      ([entry]) => { isVisible = entry.isIntersecting && !document.hidden; },
+      ([entry]) => { isVisible = entry.isIntersecting; if (isVisible) firstViewUntil = performance.now() + 2200; },
       { rootMargin: '120px 0px' }
     );
     if (trackRef.current) observer.observe(trackRef.current);
     // Smooth continuous speed in px/second
     const baseSpeedPxPerSec = 42;
+    let initialized = false;
+    let previousWidth = 0;
+    let firstViewUntil = 0;
+    const centerFirstReview = () => {
+      const viewport = viewportRef.current;
+      const set = firstSetRef.current;
+      const card = set?.firstElementChild as HTMLElement | null;
+      if (!viewport || !set || !card || viewport.clientWidth === previousWidth) return;
+      previousWidth = viewport.clientWidth;
+      const inset = window.matchMedia('(max-width: 767px)').matches
+        ? Math.max(0, (viewport.clientWidth - card.offsetWidth) / 2) : 0;
+      viewport.scrollLeft = set.offsetWidth - inset;
+      initialized = true;
+      firstViewUntil = performance.now() + 2200;
+    };
+    const resizeObserver = new ResizeObserver(centerFirstReview);
+    if (viewportRef.current) resizeObserver.observe(viewportRef.current);
+    centerFirstReview();
 
     const animate = (now: number) => {
       rafId = requestAnimationFrame(animate);
-      if (!isVisible || prefersReducedMotion) {
+      if (!isVisible || document.hidden) {
         lastTime = now;
         return;
       }
@@ -154,29 +189,42 @@ export const CustomerReviewsSection: React.FC = () => {
 
       const trackEl = trackRef.current;
       const setEl = firstSetRef.current;
+      const viewport = viewportRef.current;
 
-      if (trackEl && setEl) {
+      if (trackEl && setEl && viewport && initialized) {
         const singleSetWidth = setEl.offsetWidth;
+        if (manualCenterRef.current !== null) {
+          const remaining = manualCenterRef.current - viewport.scrollLeft;
+          if (Math.abs(remaining) <= 1 || prefersReducedMotion) {
+            viewport.scrollLeft = manualCenterRef.current;
+            manualCenterRef.current = null;
+            resumeReviews();
+          } else {
+            viewport.scrollLeft += Math.sign(remaining) * Math.max(1, Math.abs(remaining) * Math.min(1, dt * 10));
+          }
+          return;
+        }
+        offsetRef.current = viewport.scrollLeft;
 
         // Smoothly apply any manual button nudge (< or >)
         if (Math.abs(targetNudgeRef.current) > 0.25) {
           const step = targetNudgeRef.current * Math.min(1, dt * 8.5);
           offsetRef.current += step;
           targetNudgeRef.current -= step;
-        } else if (!isPausedRef.current) {
+        } else if (!isPausedRef.current && !prefersReducedMotion && now > firstViewUntil) {
           offsetRef.current += baseSpeedPxPerSec * dt;
         }
 
         // Seamless modular wrap so the loop never jumps
         if (singleSetWidth > 0) {
-          if (offsetRef.current >= singleSetWidth) {
+          if (offsetRef.current >= singleSetWidth * 2) {
             offsetRef.current -= singleSetWidth;
-          } else if (offsetRef.current < 0) {
+          } else if (offsetRef.current < singleSetWidth * 0.5) {
             offsetRef.current += singleSetWidth;
           }
         }
 
-        trackEl.style.transform = `translate3d(${-offsetRef.current.toFixed(2)}px, 0, 0)`;
+        if (!isPausedRef.current || Math.abs(targetNudgeRef.current) > 0.25) viewport.scrollLeft = offsetRef.current;
       }
 
     };
@@ -185,11 +233,29 @@ export const CustomerReviewsSection: React.FC = () => {
     return () => {
       cancelAnimationFrame(rafId);
       observer.disconnect();
+      resizeObserver.disconnect();
     };
   }, []);
 
   const handleManualStep = (direction: 'left' | 'right') => {
-    const stepAmount = 330;
+    const viewport = viewportRef.current;
+    if (viewport && window.matchMedia('(max-width: 767px)').matches) {
+      const reference = manualCenterRef.current ?? viewport.scrollLeft;
+      const viewportLeft = viewport.getBoundingClientRect().left;
+      const centers = Array.from(viewport.querySelectorAll<HTMLElement>('.review-scroll-card')).map(card => {
+        const rect = card.getBoundingClientRect();
+        return viewport.scrollLeft + rect.left - viewportLeft + rect.width / 2 - viewport.clientWidth / 2;
+      });
+      if (!centers.length) return;
+      const nearest = centers.reduce((best, center, index) => Math.abs(center - reference) < Math.abs(centers[best] - reference) ? index : best, 0);
+      const next = Math.max(0, Math.min(centers.length - 1, nearest + (direction === 'right' ? 1 : -1)));
+      pauseReviews();
+      manualCenterRef.current = centers[next];
+      return;
+    }
+    const card = firstSetRef.current?.firstElementChild as HTMLElement | null;
+    const set = firstSetRef.current;
+    const stepAmount = card && set ? card.offsetWidth + parseFloat(getComputedStyle(set).columnGap) : 330;
     targetNudgeRef.current += direction === 'right' ? stepAmount : -stepAmount;
   };
 
@@ -278,8 +344,13 @@ export const CustomerReviewsSection: React.FC = () => {
         {/* Fixed Left Yellow Rating Card + Smooth Auto-Scrolling Review Cards Stage */}
         <div
           className="relative flex flex-col md:block"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+          onPointerEnter={(event) => { if (event.pointerType === 'mouse') pauseReviews(); }}
+          onPointerLeave={(event) => { if (event.pointerType === 'mouse') setIsPaused(false); }}
+          onTouchStart={pauseReviews}
+          onTouchEnd={resumeReviews}
+          onTouchCancel={resumeReviews}
+          onFocusCapture={(event) => { if (event.target.matches(':focus-visible')) pauseReviews(); }}
+          onBlurCapture={resumeReviews}
         >
           {/* FIXED LEFT YELLOW / GOLD RATING CARD (Pinned on left while reviews auto-scroll underneath on md+) */}
           <div className="review-yellow-fixed-card relative md:absolute md:left-0 md:top-4 md:bottom-4 z-20 w-full md:w-[270px] lg:w-[285px] min-h-[300px] md:min-h-[340px] rounded-[22px] p-6 sm:p-7 flex flex-col justify-between mb-5 md:mb-0 select-none">
@@ -341,13 +412,14 @@ export const CustomerReviewsSection: React.FC = () => {
 
           {/* CONTINUOUS 60FPS SMOOTH AUTO-SCROLLING REVIEWS VIEWPORT */}
           <div
+            ref={viewportRef}
             role="region"
             aria-label="Auto-scrolling client reviews"
-            className="overflow-hidden py-4 md:pl-[250px] lg:pl-[265px]"
+            className="reviews-native-scroll overflow-x-auto py-4 md:pl-[250px] lg:pl-[265px]"
           >
             <div
               ref={trackRef}
-              className="flex items-stretch will-change-transform"
+              className="flex items-stretch w-max"
             >
               {/* First Complete Set of Reviews */}
               <div
@@ -365,6 +437,9 @@ export const CustomerReviewsSection: React.FC = () => {
                 {LOOPED_REVIEWS.slice(0, ENRICHED_REVIEWS.length).map((review) =>
                   renderReviewCard(review, 'set2')
                 )}
+              </div>
+              <div aria-hidden="true" className="flex items-stretch gap-5 sm:gap-6 pr-5 sm:pr-6 shrink-0">
+                {ENRICHED_REVIEWS.map((review) => renderReviewCard(review, 'set3'))}
               </div>
             </div>
           </div>

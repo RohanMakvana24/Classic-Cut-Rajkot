@@ -1,150 +1,43 @@
-import React from 'react';
-import { Phone, MapPin, Instagram, ArrowUpRight } from 'lucide-react';
+﻿import React from 'react';
+import { Phone, MapPin, Instagram, ArrowUpRight, ArrowUp, Calendar } from 'lucide-react';
 import { BUSINESS_INFO, ThemeMode } from '../data/barbershopData';
 import { BrandLogo } from './BrandLogo';
+import './Footer.css';
 
 interface FooterProps {
   theme?: ThemeMode;
   onOpenInspector: (initialTab?: 'layers' | 'tokens' | 'docs') => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ theme = 'dark' }) => {
-  return (
-    <footer className="bg-[#090705] text-[#C9B8A6] border-t border-[#DFAF63]/20 transition-colors duration-300">
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 py-14 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#DFAF63]/15">
-          {/* Brand & Rajkot Location */}
-          <div className="md:col-span-5 space-y-4">
-            <BrandLogo size="lg" theme={theme} />
-            <p className="text-xs sm:text-sm text-[#C9B8A6] max-w-sm leading-relaxed">
-              Premier men&apos;s grooming salon at {BUSINESS_INFO.fullAddress}. Precision haircuts, skin fades, beard styling, de-tan facials, and children&apos;s cuts in Rajkot.
-            </p>
-            <div className="flex flex-wrap items-center gap-4 pt-1 text-xs font-semibold text-[#E5B96F]">
-              <a
-                href={BUSINESS_INFO.phoneHref}
-                className="inline-flex items-center gap-1.5 hover:underline focus-ring"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                <span>{BUSINESS_INFO.phoneDisplay}</span>
-              </a>
-              <span aria-hidden="true" className="text-[#DFAF63]/40">·</span>
-              <a
-                href={BUSINESS_INFO.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:underline focus-ring"
-              >
-                <MapPin className="w-3.5 h-3.5" />
-                <span>Pedak Road, Arya Nagar, Rajkot</span>
-              </a>
-            </div>
-          </div>
+const EXPLORE = [
+  ['Our Services', '#services'], ['Grooming Essentials', '#products'],
+  ['Meet Your Salon', '#about'], ['Our Barbers', '#barbers'],
+  ['Style Inspiration', '#gallery'], ['Client Stories', '#reviews'],
+];
 
-          {/* Section Navigation */}
-          <div className="md:col-span-3 space-y-3">
-            <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-[#E5B96F]">
-              Navigation
-            </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm">
-              <li>
-                <a href="#top" className="hover:text-[#E5B96F] transition-colors focus-ring">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-[#E5B96F] transition-colors focus-ring">
-                  Our Services
-                </a>
-              </li>
-              <li>
-                <a href="#products" className="hover:text-[#E5B96F] transition-colors focus-ring">
-                  Our Products
-                </a>
-              </li>
-              <li>
-                <a href="#about" className="hover:text-[#E5B96F] transition-colors focus-ring">
-                  Meet Your Salon
-                </a>
-              </li>
-              <li>
-                <a href="#gallery" className="hover:text-[#E5B96F] transition-colors focus-ring">
-                  Transformation Gallery
-                </a>
-              </li>
-              <li>
-                <a href="#reviews" className="hover:text-[#E5B96F] transition-colors focus-ring">
-                  Customer Reviews
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-[#E5B96F] transition-colors focus-ring">
-                  Visit &amp; Book
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Official Booking & Social Channels */}
-          <div className="md:col-span-4 space-y-3">
-            <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-[#E5B96F]">
-              Official Channels
-            </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm">
-              <li>
-                <a
-                  href={BUSINESS_INFO.bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[#E5B96F] font-semibold hover:underline focus-ring"
-                >
-                  <span>Book Appointment via WhatsApp</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={BUSINESS_INFO.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:text-[#E5B96F] transition-colors focus-ring"
-                >
-                  <Instagram className="w-3.5 h-3.5 text-[#E5B96F]" />
-                  <span>Instagram ({BUSINESS_INFO.instagramHandle})</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href={BUSINESS_INFO.googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#E5B96F] transition-colors focus-ring"
-                >
-                  Google Maps Directions (Rajkot)
-                </a>
-              </li>
-              <li>
-                <a
-                  href={BUSINESS_INFO.googleReviewsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#E5B96F] transition-colors focus-ring"
-                >
-                  4.9★ Local Reviews ({BUSINESS_INFO.googleSnapshot.reviewCount}+)
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#C9B8A6]/80">
-          <p className="text-center sm:text-left">
-            &copy; {new Date().getFullYear()} {BUSINESS_INFO.name} · Pedak Cross Road, Arya Nagar, Rajkot, Gujarat 360003
-          </p>
-          <p className="text-center sm:text-right">
-            Precision Haircuts · Skin Fades · Beard Styling · Rajkot, India
-          </p>
-        </div>
+export const Footer: React.FC<FooterProps> = ({ theme = 'dark' }) => (
+  <footer className="salon-footer" aria-label="Classic Cut Salon footer">
+    <div className="salon-footer__inner">
+      <div className="salon-footer__invitation">
+        <div><p className="salon-footer__eyebrow">YOUR NEXT CHAPTER STARTS WITH A FRESH CUT</p><h2>Look sharp.<br /><span>Feel like yourself.</span></h2></div>
+        <a href={BUSINESS_INFO.bookingUrl} target="_blank" rel="noopener noreferrer" className="salon-footer__book"><span><Calendar size={16} /> LET’S SAVE YOU A CHAIR</span><span className="salon-footer__book-arrow"><ArrowUpRight size={24} strokeWidth={1.5} /></span></a>
       </div>
-    </footer>
-  );
-};
+
+      <div className="salon-footer__grid">
+        <div className="salon-footer__brand"><BrandLogo size="lg" theme={theme} className="salon-footer__logo" /><p>Thoughtful cuts. Confident finishes.<br />A little everyday luxury, right here in Rajkot.</p><span className="salon-footer__local"><span /> ARYA NAGAR, RAJKOT</span></div>
+        <nav className="salon-footer__explore" aria-label="Footer navigation"><h3>TAKE A LOOK AROUND</h3><div>{EXPLORE.map(([label, href]) => <a href={href} key={href}>{label}<ArrowUpRight size={12} /></a>)}</div></nav>
+        <div className="salon-footer__connect"><h3>LET’S TALK</h3><a href={BUSINESS_INFO.phoneHref}><Phone size={14} /><span>{BUSINESS_INFO.phoneDisplay}</span><ArrowUpRight size={13} /></a><a href={BUSINESS_INFO.instagramUrl} target="_blank" rel="noopener noreferrer"><Instagram size={14} /><span>{BUSINESS_INFO.instagramHandle}</span><ArrowUpRight size={13} /></a><a href="#contact"><MapPin size={14} /><span>Pedak Cross Road, Opp. Umiya R.O.<br />Arya Nagar, Rajkot, Gujarat 360003</span><ArrowUpRight size={13} /></a></div>
+      </div>
+
+      <a href="#top" className="salon-footer__wordmark" aria-label="Classic Cut Salon — back to top">
+        <svg viewBox="0 0 1400 200" fill="none" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="footer-wordmark-gold" x1="0" y1="0" x2="1400" y2="200" gradientUnits="userSpaceOnUse"><stop className="salon-footer__wordmark-stop-one" /><stop offset=".5" className="salon-footer__wordmark-stop-two" /><stop offset="1" className="salon-footer__wordmark-stop-three" /></linearGradient></defs>
+          <text x="0" y="167" textLength="1400" lengthAdjust="spacingAndGlyphs" fill="url(#footer-wordmark-gold)">CLASSIC CUT</text>
+        </svg>
+        <span className="salon-footer__wordmark-caption"><span>GOOD HAIR. GREAT DAYS.</span><span>MEN’S GROOMING &amp; KIDS’ CUTS</span><span>SALON · RAJKOT</span></span>
+      </a>
+
+      <div className="salon-footer__bottom"><p>© {new Date().getFullYear()} Classic Cut Salon. All rights reserved.</p><span>Crafted for your everyday confidence.</span><a href="#top">Back to top <ArrowUp size={13} /></a></div>
+    </div>
+  </footer>
+);

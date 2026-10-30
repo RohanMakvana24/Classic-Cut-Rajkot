@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   Phone,
   Calendar,
@@ -18,53 +18,20 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = () => {
-  const backgroundRef = useRef<HTMLImageElement | null>(null);
-  const titleRef = useRef<HTMLDivElement | null>(null);
-  const frameRef = useRef<number | null>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-
-    if (frameRef.current !== null) return;
-    frameRef.current = requestAnimationFrame(() => {
-      if (backgroundRef.current) {
-        backgroundRef.current.style.transform = `scale(1.02) translate3d(${normX * 4.8}px, ${normY * 2.4}px, 0)`;
-      }
-      if (titleRef.current) {
-        titleRef.current.style.transform = `rotate(-2.2deg) translate3d(${-normX * 5}px, ${-normY * 2.5}px, 0)`;
-      }
-      frameRef.current = null;
-    });
-  };
-
-  const handleMouseLeave = () => {
-    if (backgroundRef.current) {
-      backgroundRef.current.style.transform = 'scale(1.02) translate3d(0, 0, 0)';
-    }
-    if (titleRef.current) {
-      titleRef.current.style.transform = 'rotate(-2.2deg) translate3d(0, 0, 0)';
-    }
-  };
-
   return (
     <section
       id="top"
       aria-label="Classic Cut Salon Rajkot Hero"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="relative min-h-[92vh] xl:min-h-screen w-full overflow-hidden bg-[#080605] border-b border-[#D9A34B]/25 flex items-center"
     >
       {/* LAYER 1: First Uploaded Image (/assets/aistudio/image_5ddfe75b.png) as Full-Bleed Hero Background */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <img
-          ref={backgroundRef}
           src="/assets/aistudio/image_5ddfe75b.png"
           alt="Classic Cut Salon Rajkot luxury interior with barber standing behind classic black and gold barber chair"
           fetchPriority="high"
           decoding="async"
-          className="h-full w-full object-cover object-[68%_center] sm:object-[62%_center] lg:object-center transition-transform duration-300 ease-out will-change-transform"
+          className="h-full w-full object-cover object-[68%_center] sm:object-[62%_center] lg:object-center"
         />
 
         {/* Subtle Left-Side Dark Gradient Vignette so Left Typography has studio-grade contrast */}
@@ -121,9 +88,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
             {/* 3. 3D Extruded / Beveled Headline ("SHARPER / EVERYDAY") + Overlapping Gold Script ("Look Good") */}
             <div
-              ref={titleRef}
-              style={{ transform: 'rotate(-2.2deg) translate3d(0, 0, 0)' }}
-              className="relative my-1 sm:my-2 select-none transition-transform duration-200 max-w-full will-change-transform"
+              style={{ transform: 'rotate(-2.2deg)' }}
+              className="relative my-1 sm:my-2 select-none max-w-full"
             >
               <h1 className="flex flex-col items-start leading-[0.92]">
                 <span className="text-3d-sharper text-[2.85rem] sm:text-[5.1rem] md:text-[6.1rem] lg:text-[6.6rem] tracking-[-0.02em]">

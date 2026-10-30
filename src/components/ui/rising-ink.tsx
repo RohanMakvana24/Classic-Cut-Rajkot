@@ -74,10 +74,12 @@ export function RisingInk({
       style={{ '--ink-face': color, '--ink-near': colors[0], '--ink-far': colors[1] }}
     >
       <span aria-hidden="true">
-        {Array.from(text).map((character, index) => character === ' ' ? (
-          <span className="rising-ink__space" key={index}>&nbsp;</span>
-        ) : (
-          <span className="rising-ink__letter" data-rising-letter key={`${character}-${index}`}>{character}</span>
+        {text.split(/\s+/).map((word, wordIndex) => (
+          <span className="rising-ink__word" key={`${word}-${wordIndex}`}>
+            {Array.from(word).map((character, index) => (
+              <span className="rising-ink__letter" data-rising-letter key={`${character}-${index}`}>{character}</span>
+            ))}
+          </span>
         ))}
       </span>
     </Tag>

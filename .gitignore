@@ -6,3 +6,7 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local duplicate checkout and editor-generated artifacts
+/Class-Cut-Salon-main/
+/.aistudio/
