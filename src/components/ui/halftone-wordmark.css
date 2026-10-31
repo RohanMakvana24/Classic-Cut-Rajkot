@@ -1,4 +1,4 @@
-﻿.hwf-wordmark { position: relative; width: 100%; height: clamp(64px, 15vw, 210px); overflow: hidden; isolation: isolate; background: var(--hwf-bg); touch-action: pan-y pinch-zoom; }
+.hwf-wordmark { position: relative; width: 100%; height: max(70px, 16vw); overflow: hidden; isolation: isolate; background: var(--hwf-bg); touch-action: pan-y pinch-zoom; }
 .hwf-wordmark > canvas, .hwf-wordmark__fallback { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
 .hwf-wordmark__fallback { fill: var(--hwf-ink); }
 .hwf-wordmark__fallback text { font-family: var(--font-display); font-weight: 800; font-size: 188px; }

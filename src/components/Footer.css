@@ -1,4 +1,4 @@
-﻿.salon-footer { --footer-bg: #100d09; --footer-ink: #f7ecda; --footer-muted: #ac9a82; --footer-gold: #deb77a; --footer-line: #b9986a33; position: relative; overflow: hidden; background: var(--footer-bg); color: var(--footer-ink); border-top: 1px solid var(--footer-line); }
+.salon-footer { --footer-bg: #100d09; --footer-ink: #f7ecda; --footer-muted: #ac9a82; --footer-gold: #deb77a; --footer-line: #b9986a33; position: relative; overflow: hidden; background: var(--footer-bg); color: var(--footer-ink); border-top: 1px solid var(--footer-line); }
 html[data-theme='light'] .salon-footer { --footer-bg: #faf6ee; --footer-ink: #2d2318; --footer-muted: #7c6a56; --footer-gold: #966c35; --footer-line: #ad8c5e3d; }
 .salon-footer__inner { max-width: 1360px; margin-inline: auto; padding: 64px 40px 0; }
 .salon-footer__invitation { display: flex; align-items: end; justify-content: space-between; gap: 35px; padding-bottom: 49px; border-bottom: 1px solid var(--footer-line); }
@@ -72,5 +72,5 @@ html[data-theme='light'] .salon-footer .salon-footer__logo > img {
 
 .salon-footer__inner--bottom { padding-top: 0; }
 .salon-footer__wordmark-caption { max-width: 1360px; margin-inline: auto; padding-inline: 40px; }
-.hwf-wordmark { height: clamp(70px, 16vw, 330px); }
+
 @media (max-width: 640px) { .salon-footer__inner--bottom { padding-top: 0; } .salon-footer__wordmark-caption { padding-inline: 20px; } }
