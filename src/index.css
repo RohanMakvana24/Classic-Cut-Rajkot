@@ -435,7 +435,7 @@ html[data-theme="light"] body {
 
 /* Non-Hero sections & Footer adapt to Warm Ivory Daylight palette */
 html[data-theme="light"] main section:not(#top),
-html[data-theme="light"] footer {
+html[data-theme="light"] footer.salon-footer {
   background-color: #FAF6EE !important;
   color: #1A130E !important;
   border-color: rgba(184, 130, 53, 0.28) !important;

@@ -8,6 +8,12 @@ const GALLERY_ITEMS = [
   { image: '/assets/hairstyles/textured-crop.webp', title: 'Textured Crop', description: 'Choppy texture with a clean low fade.' },
   { image: '/assets/hairstyles/modern-quiff.webp', title: 'Modern Quiff', description: 'Lifted volume with neatly tapered sides.' },
   { image: '/assets/hairstyles/classic-side-part.webp', title: 'Classic Side Part', description: 'A clean part with a polished finish.' },
+  { image: '/assets/hairstyles/curly-taper-ai.webp', title: 'Curly Taper', description: 'Defined natural curls with a soft temple taper.' },
+  { image: '/assets/hairstyles/buzz-fade-ai.webp', title: 'Buzz Fade', description: 'A sharp buzz cut with a smooth skin fade.' },
+  { image: '/assets/hairstyles/slick-back-ai.webp', title: 'Slick Back', description: 'Swept-back length with a crisp undercut.' },
+  { image: '/assets/hairstyles/wavy-flow-ai.webp', title: 'Wavy Flow', description: 'Natural movement with medium-length layers.' },
+  { image: '/assets/hairstyles/french-crop-ai.webp', title: 'French Crop', description: 'A blunt fringe with a clean high fade.' },
+  { image: '/assets/hairstyles/modern-mullet-ai.webp', title: 'Modern Mullet', description: 'Textured layers with a subtle burst fade.' },
 ];
 
 export const TransformationGallerySection = () => {

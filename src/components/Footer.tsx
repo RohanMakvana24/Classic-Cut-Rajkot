@@ -3,7 +3,6 @@ import { Phone, MapPin, Instagram, ArrowUpRight, ArrowUp, Calendar } from 'lucid
 import { BUSINESS_INFO, ThemeMode } from '../data/barbershopData';
 import { BrandLogo } from './BrandLogo';
 import './Footer.css';
-import HalftoneWordmark from './ui/halftone-wordmark';
 
 interface FooterProps {
   theme?: ThemeMode;
@@ -31,10 +30,6 @@ export const Footer: React.FC<FooterProps> = ({ theme = 'dark' }) => (
       </div>
 
     </div>
-      <div className="salon-footer__wordmark">
-        <HalftoneWordmark wordmark="CLASSIC CUT" background={theme === 'light' ? '#FAF6EE' : '#100D09'} ink={theme === 'light' ? '#6E4D2B' : '#E7C58E'} warm={theme === 'light' ? '#B7782E' : '#FFF0CE'} />
-        <span className="salon-footer__wordmark-caption"><span>GOOD HAIR. GREAT DAYS.</span><span>MEN’S GROOMING &amp; KIDS’ CUTS</span><span>SALON · RAJKOT</span></span>
-      </div>
 
     <div className="salon-footer__inner salon-footer__inner--bottom">
       <div className="salon-footer__bottom"><p>© {new Date().getFullYear()} Classic Cut Salon. All rights reserved.</p><span>Crafted for your everyday confidence.</span><a href="#top">Back to top <ArrowUp size={13} /></a></div>

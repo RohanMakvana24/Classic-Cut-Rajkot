@@ -15,7 +15,7 @@ export function hwfHex(hex: string) {
 /** Dot radius for a cell coverage in [0, 1]: area-true, so tone stays even. */
 export function hwfRadius(coverage: number, gap: number) {
   const c = coverage < 0 ? 0 : coverage > 1 ? 1 : coverage
-  return Math.sqrt(c) * gap * 0.56
+  return Math.sqrt(c) * gap * 0.49
 }
 
 /**
@@ -64,7 +64,7 @@ export default function HalftoneWordmark({ wordmark = 'CLASSIC CUT', background,
   const rootRef = React.useRef<HTMLDivElement | null>(null);
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
   const colors = { background, ink, warm };
-  const settings = { colors, dotGap: 5.5, radius: 80, crop: 0, grain: 0.18, interactive: true, fontFamily: '"Outfit", "Helvetica Neue", Arial, sans-serif', fontWeight: 800, wordmark };
+  const settings = { colors, dotGap: 3.2, radius: 65, crop: 0, grain: 0.06, interactive: true, fontFamily: '"Outfit", "Helvetica Neue", Arial, sans-serif', fontWeight: 600, wordmark };
   const opts = React.useRef(settings);
   opts.current = settings;
   const key = [wordmark, background, ink, warm].join('|');
@@ -111,10 +111,14 @@ export default function HalftoneWordmark({ wordmark = 'CLASSIC CUT', background,
       if (!m) return
       const face = o.fontWeight + " 100px " + o.fontFamily
       m.font = face
+      m.letterSpacing = '-1.6px'
+      m.wordSpacing = '-9px'
       const word = o.wordmark || " "
       const inset = w < 640 ? 10 : 18
       const fit = hwfFitSize(m.measureText(word).width, Math.max(1, w - inset * 2))
       m.font = o.fontWeight + " " + fit + "px " + o.fontFamily
+      m.letterSpacing = (-0.016 * fit) + 'px'
+      m.wordSpacing = (-0.09 * fit) + 'px'
       const box = m.measureText(word)
       const cap = box.actualBoundingBoxAscent || fit * 0.72
       const descent = Math.max(0, box.actualBoundingBoxDescent || 0)
@@ -124,7 +128,7 @@ export default function HalftoneWordmark({ wordmark = 'CLASSIC CUT', background,
       m.fillText(word, (w - box.width) / 2, baseline)
       const img = m.getImageData(0, 0, w, h).data
 
-      const gap = w < 640 ? 2.8 : Math.max(3, o.dotGap)
+      const gap = w < 640 ? 2.2 : o.dotGap
       const cols = Math.ceil(w / gap)
       const rows = Math.ceil(h / gap)
       const tmp = []

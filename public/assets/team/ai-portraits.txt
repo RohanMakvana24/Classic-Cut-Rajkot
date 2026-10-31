@@ -1,0 +1,13 @@
+Generated with the built-in image_gen tool.
+Files: ai-barber-1.webp through ai-barber-6.webp.
+
+Prompt template:
+Use case: photorealistic-natural. Asset type: salon website team portrait. Create one realistic editorial head and shoulders photograph of a fictional {subject}. Facing camera with a relaxed friendly expression, centered head fully visible with generous margin, softly blurred premium Indian barbershop background, soft window lighting, natural skin texture, elegant black and white photography. Vertical portrait. No text, no watermark, no collage.
+
+Subjects, in file order:
+1. Indian male barber aged 32 with short textured hair and a tidy full beard, black barber apron
+2. Indian male barber aged 40 with swept-back hair and trimmed beard, charcoal shirt
+3. Indian male barber aged 26 with curly short hair and light stubble, black salon shirt
+4. Indian male barber aged 35 with side-parted hair and moustache, dark barber apron
+5. Indian male barber aged 29 with a fade haircut and neat beard, black collared shirt
+6. Indian female hairstylist aged 28 with shoulder-length dark hair, black salon uniform
