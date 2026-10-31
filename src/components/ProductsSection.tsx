@@ -1,3 +1,4 @@
+import { SkeletonImage } from './ui/skeleton-image';
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Minus, Plus, ShoppingBag, X, Trash2 } from 'lucide-react';
 import { CoverflowCarousel } from './ui/coverflow-carousel';
@@ -199,7 +200,7 @@ export const ProductsSection: React.FC = () => {
                 }`}
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#100B08]">
-                  <img
+                  <SkeletonImage
                     src={PRODUCT_IMAGES[product.id]}
                     alt={`${product.name} product`}
                     loading="lazy"
@@ -276,7 +277,7 @@ export const ProductsSection: React.FC = () => {
             <header className="product-bag-panel__header"><div><p>THE CLASSIC CUT EDIT</p><h2 id="product-bag-title">Your grooming kit<span>.</span></h2><span>{totalItems} {totalItems === 1 ? 'essential' : 'essentials'} selected</span></div><button type="button" aria-label="Close shopping bag" onClick={() => setBagOpen(false)}><X size={20} /></button></header>
             <div className="product-bag-panel__items">
               {cartProducts.length ? cartProducts.map(product => <div className="product-bag-item" key={product.id}>
-                <img src={PRODUCT_IMAGES[product.id]} alt={product.name} />
+                <SkeletonImage src={PRODUCT_IMAGES[product.id]} alt={product.name} />
                 <div className="product-bag-item__info"><span>{product.categoryLabel}</span><h3>{product.name}</h3><p>{product.volume} · {product.priceInr} each</p><div className="product-bag-item__quantity"><button type="button" aria-label={`Remove one ${product.name} from bag`} onClick={() => changeQuantity(product.id, -1)}><Minus size={13} /></button><span>{quantities[product.id]}</span><button type="button" aria-label={`Add one ${product.name} to bag`} onClick={() => changeQuantity(product.id, 1)}><Plus size={13} /></button></div></div>
                 <div className="product-bag-item__price"><strong>₹{getPrice(product.priceInr) * quantities[product.id]}</strong><button type="button" aria-label={`Remove ${product.name} from bag`} onClick={() => setQuantities(current => { const next = { ...current }; delete next[product.id]; return next; })}><Trash2 size={14} /></button></div>
               </div>) : <div className="product-bag-empty"><span><ShoppingBag size={34} strokeWidth={1.2} /></span><h3>Your next essential is waiting.</h3><p>Find your daily hair, beard and skin favourites. Add a little salon care to your routine.</p><button type="button" onClick={() => setBagOpen(false)}>Explore products <ArrowUpRight size={16} /></button></div>}

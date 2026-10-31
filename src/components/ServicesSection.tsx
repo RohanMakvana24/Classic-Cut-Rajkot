@@ -1,3 +1,4 @@
+import { SkeletonImage } from './ui/skeleton-image';
 import React, { useState } from 'react';
 import {
   Shield,
@@ -156,7 +157,7 @@ export const ServicesSection: React.FC = () => {
                 <div className="service-character-card__stage">
                   <div className="service-character-card__arch" aria-hidden="true"><span>{visual.word}</span></div>
                   <span className="service-character-card__spark" aria-hidden="true"><SalonServiceIcon serviceId={service.id} /></span>
-                  <img src={`/assets/characters/services/${visual.image}.png`} alt={visual.alt} loading="lazy" decoding="async" draggable={false} width="1024" height="1024" />
+                  <SkeletonImage skeletonClassName="image-skeleton--portrait" src={`/assets/characters/services/${visual.image}.png`} alt={visual.alt} loading="lazy" decoding="async" draggable={false} width="1024" height="1024" />
                   {isFeatured && <span className="service-character-card__signature">THE SIGNATURE CUT</span>}
                 </div>
                 <div className="service-character-card__body">

@@ -1,3 +1,4 @@
+import { SkeletonImage } from './ui/skeleton-image';
 import React from 'react';
 import {
   Phone,
@@ -26,7 +27,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     >
       {/* LAYER 1: First Uploaded Image (/assets/aistudio/image_5ddfe75b.png) as Full-Bleed Hero Background */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <img
+        <SkeletonImage skeletonClassName="image-skeleton--hero"
           src="/assets/aistudio/image_5ddfe75b.png"
           alt="Classic Cut Salon Rajkot luxury interior with barber standing behind classic black and gold barber chair"
           fetchPriority="high"

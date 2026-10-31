@@ -159,3 +159,16 @@
 .infinite-menu__info[data-layout='stacked'][data-moving='true'] .infinite-menu__action {
   transform: translateY(12px) scale(0.6);
 }
+
+.infinite-menu__skeleton { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 24px; pointer-events: none; }
+.infinite-menu__skeleton .image-skeleton { position: relative; inset: auto; flex-shrink: 0; width: clamp(100px, 22vw, 240px); height: clamp(130px, 27vw, 290px); border-radius: 24px; }
+.infinite-menu__skeleton .image-skeleton:nth-child(2) { width: clamp(160px, 29vw, 320px); height: clamp(195px, 33vw, 360px); }
+.infinite-menu__skeleton .image-skeleton:first-child { transform: perspective(600px) rotateY(25deg) scale(.85); opacity: .5; }
+.infinite-menu__skeleton .image-skeleton:last-child { transform: perspective(600px) rotateY(-25deg) scale(.85); opacity: .5; }
+.infinite-menu[data-images-loading='true'] .infinite-menu__canvas, .infinite-menu[data-images-loading='true'] .infinite-menu__info { visibility: hidden; }
+.infinite-menu__fallback { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px; }
+.infinite-menu__fallback > div { position: relative; width: min(75vw, 320px); aspect-ratio: 1; border-radius: 25px; overflow: hidden; }
+.infinite-menu__fallback img { width: 100%; height: 100%; object-fit: cover; }
+.infinite-menu__fallback figcaption { text-align: center; margin-top: 20px; color: var(--infinite-menu-text); }
+.infinite-menu__fallback strong { font-size: 22px; }
+.infinite-menu__fallback p { font-size: 12px; line-height: 1.7; margin-top: 8px; }

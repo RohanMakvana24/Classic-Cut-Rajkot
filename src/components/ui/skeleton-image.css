@@ -1,0 +1,26 @@
+.image-skeleton {
+  --skeleton-base: #2b241c;
+  --skeleton-sheen: #e0bc7920;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+  background: var(--skeleton-base);
+}
+html[data-theme='light'] .image-skeleton { --skeleton-base: #eae1d4; --skeleton-sheen: #fffdf8b0; }
+.image-skeleton::after { content: ''; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 20%, var(--skeleton-sheen) 50%, transparent 80%); transform: translateX(-100%); animation: image-skeleton-shimmer 1.5s ease-in-out infinite; }
+.image-skeleton--portrait { inset: 22px 24px 0; border-radius: 180px 180px 14px 14px; }
+.image-skeleton--hero { --skeleton-base: #19140e !important; --skeleton-sheen: #e0bc7915 !important; }
+.image-skeleton--error { display: grid; place-items: center; color: #9d876c; }
+.image-skeleton--error::after { animation: none; background: none; }
+.skeleton-image[data-image-state='loading'], .skeleton-image[data-image-state='error'] { opacity: 0 !important; }
+.skeleton-image[data-image-state='loaded'] { animation: skeleton-image-reveal .3s ease both; }
+.salon-location__shop-photo, .product-bag-item { position: relative; }
+.product-bag-item .image-skeleton { inset: 23px auto auto 0; width: 78px; height: 94px; border-radius: 11px; }
+@keyframes image-skeleton-shimmer { to { transform: translateX(100%); } }
+@keyframes skeleton-image-reveal { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 639px) { .product-bag-item .image-skeleton { top: 18px; width: 65px; height: 86px; } }
+@media (prefers-reduced-motion: reduce) { .image-skeleton::after, .skeleton-image[data-image-state='loaded'] { animation: none; } }

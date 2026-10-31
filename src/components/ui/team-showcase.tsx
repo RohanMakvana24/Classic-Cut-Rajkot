@@ -1,3 +1,4 @@
+import { SkeletonImage } from './skeleton-image';
 import { useState } from 'react';
 import { FaLinkedinIn, FaTwitter, FaBehance, FaInstagram } from 'react-icons/fa';
 import './team-showcase.css';
@@ -92,7 +93,7 @@ function PhotoCard({ member, activeId, onHover, onSelect }: MemberProps) {
       onMouseEnter={() => onHover(member.id)} onMouseLeave={() => onHover(null)}
       onFocus={() => onHover(member.id)} onBlur={() => onHover(null)} onClick={() => onSelect(member.id)}>
       {failed ? <span className="team-showcase__fallback" aria-label={`Photo unavailable for ${member.name}`}>{member.name.split(' ').map(part => part[0]).join('')}</span>
-        : <img src={member.image} alt={member.name} loading="lazy" decoding="async" onError={() => setFailed(true)} />}
+        : <SkeletonImage src={member.image} alt={member.name} loading="lazy" decoding="async" onError={() => setFailed(true)} />}
     </button>
   );
 }

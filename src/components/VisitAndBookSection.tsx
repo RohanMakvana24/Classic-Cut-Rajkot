@@ -1,3 +1,4 @@
+import { SkeletonImage } from './ui/skeleton-image';
 import React, { useState } from 'react';
 import { MapPin, Phone, Calendar, Navigation, ArrowUpRight, Plus, Minus, RotateCcw, Copy, Check } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/barbershopData';
@@ -28,7 +29,7 @@ export const VisitAndBookSection: React.FC = () => {
       <div className="salon-location">
         <div className="salon-location__visual">
             <div className="salon-location__world" style={{ transform: `scale(${zoom})` }}>
-              <img src="/assets/location/classic-cut-neighborhood.png" alt="Miniature architectural illustration inspired by Classic Cut Salon’s ivory storefront, gold arched entrance and potted palms" loading="lazy" decoding="async" draggable={false} />
+              <SkeletonImage src="/assets/location/classic-cut-neighborhood.png" alt="Miniature architectural illustration inspired by Classic Cut Salon’s ivory storefront, gold arched entrance and potted palms" loading="lazy" decoding="async" draggable={false} />
               <a className="salon-location__pin" href={DIRECTIONS} target="_blank" rel="noopener noreferrer" aria-label="Get directions to Classic Cut Salon">
                 <span className="salon-location__pin-label">CLASSIC CUT <span>YOUR CHAIR IS HERE</span></span>
                 <MapPin aria-hidden="true" /><span className="salon-location__pin-ring" />
@@ -46,7 +47,7 @@ export const VisitAndBookSection: React.FC = () => {
 
 
         <a className="salon-location__shop" href={DIRECTIONS} target="_blank" rel="noopener noreferrer">
-          <div className="salon-location__shop-photo"><img src="/assets/location/classic-cut-neighborhood.png" alt="Classic Cut Salon storefront illustration" loading="lazy" /></div>
+          <div className="salon-location__shop-photo"><SkeletonImage src="/assets/location/classic-cut-neighborhood.png" alt="Classic Cut Salon storefront illustration" loading="lazy" /></div>
           <div className="salon-location__shop-info"><div><strong>Classic Cut Salon</strong><p><MapPin size={13} /><span>Pedak Cross Road · Arya Nagar<br />Rajkot, Gujarat 360003</span></p></div><span className="salon-location__shop-arrow"><ArrowUpRight size={18} /></span></div>
         </a>
 

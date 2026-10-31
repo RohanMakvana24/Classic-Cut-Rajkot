@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import './InfiniteMenu.css';
+import { SkeletonImage } from './skeleton-image';
 
 const VERTEX = `#version 300 es
 in vec2 aCorner;
@@ -181,6 +182,8 @@ const InfiniteMenu = ({
   const [active, setActive] = useState(0);
   const [moving, setMoving] = useState(true);
   const [layout, setLayout] = useState('side');
+  const [imagesLoading, setImagesLoading] = useState(true);
+  const [webglUnavailable, setWebglUnavailable] = useState(false);
   const settings = {
     count: clamp(Math.round(count), 6, 400),
     tileSize: clamp(tileSize, 0.2, 1.2),
@@ -206,16 +209,28 @@ const InfiniteMenu = ({
     const root = rootRef.current;
     const canvas = canvasRef.current;
     const gl = canvas?.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: true });
-    if (!root || !canvas || !gl) return undefined;
+    if (!root || !canvas || !gl) {
+      setWebglUnavailable(true);
+      setImagesLoading(false);
+      return undefined;
+    }
 
     const vertex = compile(gl, gl.VERTEX_SHADER, VERTEX);
     const fragment = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT);
     const program = gl.createProgram();
-    if (!vertex || !fragment || !program) return undefined;
+    if (!vertex || !fragment || !program) {
+      setWebglUnavailable(true);
+      setImagesLoading(false);
+      return undefined;
+    }
     gl.attachShader(program, vertex);
     gl.attachShader(program, fragment);
     gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return undefined;
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      setWebglUnavailable(true);
+      setImagesLoading(false);
+      return undefined;
+    }
     gl.useProgram(program);
 
     const uniforms = {};
@@ -364,6 +379,7 @@ const InfiniteMenu = ({
     };
 
     const loadItems = list => {
+      setImagesLoading(true);
       const request = ++atlas.request;
       const total = Math.max(1, list.length);
       atlas.cells = Math.ceil(Math.sqrt(total));
@@ -376,14 +392,14 @@ const InfiniteMenu = ({
       state.count = 0;
       layout();
       let pending = list.length;
-      if (!pending) state.started = true;
+      if (!pending) { state.started = true; setImagesLoading(false); }
       list.forEach((item, index) => {
         const image = new Image();
         image.crossOrigin = 'anonymous';
         image.decoding = 'async';
         const done = () => {
           pending -= 1;
-          if (pending <= 0) state.started = true;
+          if (pending <= 0) { state.started = true; setImagesLoading(false); }
           wake();
         };
         image.onload = () => {
@@ -870,6 +886,8 @@ const InfiniteMenu = ({
       role="group"
       aria-roledescription="carousel"
       aria-label={current?.title || 'Infinite menu'}
+      aria-busy={imagesLoading}
+      data-images-loading={imagesLoading}
       style={{
         backgroundColor,
         '--infinite-menu-text': ink,
@@ -880,8 +898,15 @@ const InfiniteMenu = ({
         ...style
       }}
     >
-      <canvas ref={canvasRef} className="infinite-menu__canvas" />
+      {webglUnavailable ? (
+        <figure className="infinite-menu__fallback">
+          <div><SkeletonImage src={current?.image} alt={current?.title || 'Hairstyle inspiration'} /></div>
+          <figcaption><strong>{current?.title}</strong><p>{current?.description}</p></figcaption>
+        </figure>
+      ) : <canvas ref={canvasRef} className="infinite-menu__canvas" />}
+      {imagesLoading && <div className="infinite-menu__skeleton" role="status" aria-label="Loading hairstyle images"><span className="image-skeleton" /><span className="image-skeleton" /><span className="image-skeleton" /></div>}
       {showInfo &&
+        !webglUnavailable &&
         current &&
         (renderInfo ? (
           <div className="infinite-menu__custom">{renderInfo(current, active % items.length, moving)}</div>

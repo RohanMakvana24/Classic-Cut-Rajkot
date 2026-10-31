@@ -1,3 +1,4 @@
+import { SkeletonImage } from './skeleton-image';
 "use client";
 
 import * as React from "react";
@@ -322,7 +323,7 @@ export function CoverflowCarousel({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <picture className="contents">
-                  <img
+                  <SkeletonImage
                     src={slide.src}
                     sizes="(max-width: 640px) 78vw, 340px"
                     alt={slide.alt}
