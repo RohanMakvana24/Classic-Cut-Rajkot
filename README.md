@@ -5,11 +5,11 @@ Responsive website for Classic Cut Salon in Arya Nagar, Rajkot, built with React
 ## Run locally
 
 ```sh
-npm install --legacy-peer-deps
+npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The legacy peer dependency option is needed for the existing Vite/esbuild version combination.
+Open http://localhost:3000.
 
 ## Checks and production build
 
