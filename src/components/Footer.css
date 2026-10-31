@@ -69,3 +69,8 @@ html[data-theme='light'] .salon-footer { --footer-bg: #faf6ee; --footer-ink: #2d
 html[data-theme='light'] .salon-footer .salon-footer__logo > img {
   filter: brightness(0) saturate(100%) invert(37%) sepia(64%) saturate(1010%) hue-rotate(359deg) brightness(86%) contrast(91%) !important;
 }
+
+.salon-footer__inner--bottom { padding-top: 0; }
+.salon-footer__wordmark-caption { max-width: 1360px; margin-inline: auto; padding-inline: 40px; }
+.hwf-wordmark { height: clamp(70px, 16vw, 330px); }
+@media (max-width: 640px) { .salon-footer__inner--bottom { padding-top: 0; } .salon-footer__wordmark-caption { padding-inline: 20px; } }
