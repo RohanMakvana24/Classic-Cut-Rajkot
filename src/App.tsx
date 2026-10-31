@@ -30,7 +30,7 @@ export default function App() {
         return saved;
       }
     }
-    return 'dark';
+    return 'light';
   });
   const [cropConfig, setCropConfig] = useState<HeroCropConfig>(DEFAULT_HERO_CROP);
   const [customCutoutUrl, setCustomCutoutUrl] = useState<string | null>(null);
