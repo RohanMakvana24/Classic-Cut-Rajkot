@@ -25,7 +25,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       } ${className}`}
     >
       <img
-        src="/assets/brand/classic-cut-icon-cropped.png"
+        src="/assets/brand/classic-cut-icon-cropped.webp"
         alt=""
         aria-hidden="true"
         decoding="async"

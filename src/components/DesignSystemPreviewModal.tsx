@@ -423,7 +423,7 @@ export const DesignSystemPreviewModal: React.FC<DesignSystemPreviewModalProps> =
 
                 <div className="mt-3 max-h-[380px] overflow-y-auto rounded-[6px] border border-[#F7F1E8]/15 bg-[#181311]">
                   <img
-                    src="/assets/aistudio/image_c6e6f2ed.png"
+                    src="/assets/aistudio/image_c6e6f2ed.webp"
                     alt="Supplied desktop and mobile barbershop reference layout"
                     className="w-full h-auto object-contain"
                   />

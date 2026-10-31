@@ -5,9 +5,9 @@ import InfiniteMenu from './ui/InfiniteMenu';
 import { RisingInk } from './ui/rising-ink';
 
 const GALLERY_ITEMS = [
-  { image: '/assets/hairstyles/textured-crop.png', title: 'Textured Crop', description: 'Choppy texture with a clean low fade.' },
-  { image: '/assets/hairstyles/modern-quiff.png', title: 'Modern Quiff', description: 'Lifted volume with neatly tapered sides.' },
-  { image: '/assets/hairstyles/classic-side-part.png', title: 'Classic Side Part', description: 'A clean part with a polished finish.' },
+  { image: '/assets/hairstyles/textured-crop.webp', title: 'Textured Crop', description: 'Choppy texture with a clean low fade.' },
+  { image: '/assets/hairstyles/modern-quiff.webp', title: 'Modern Quiff', description: 'Lifted volume with neatly tapered sides.' },
+  { image: '/assets/hairstyles/classic-side-part.webp', title: 'Classic Side Part', description: 'A clean part with a polished finish.' },
 ];
 
 export const TransformationGallerySection = () => {

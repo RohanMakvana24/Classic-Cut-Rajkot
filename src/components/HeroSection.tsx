@@ -25,10 +25,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       aria-label="Classic Cut Salon Rajkot Hero"
       className="relative min-h-[92vh] xl:min-h-screen w-full overflow-hidden bg-[#080605] border-b border-[#D9A34B]/25 flex items-center"
     >
-      {/* LAYER 1: First Uploaded Image (/assets/aistudio/image_5ddfe75b.png) as Full-Bleed Hero Background */}
+      {/* LAYER 1: First Uploaded Image (/assets/aistudio/image_5ddfe75b.webp) as Full-Bleed Hero Background */}
       <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <SkeletonImage skeletonClassName="image-skeleton--hero"
-          src="/assets/aistudio/image_5ddfe75b.png"
+          src="/assets/aistudio/image_5ddfe75b.webp"
           alt="Classic Cut Salon Rajkot luxury interior with barber standing behind classic black and gold barber chair"
           fetchPriority="high"
           decoding="async"

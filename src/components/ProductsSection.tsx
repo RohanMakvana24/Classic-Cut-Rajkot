@@ -20,12 +20,12 @@ const PRODUCT_TABS: { id: ProductCategoryFilter; label: string }[] = [
 const getPrice = (price: string) => Number(price.replace(/[^\d]/g, '')) || 0;
 
 const PRODUCT_IMAGES: Record<string, string> = {
-  'matte-molding-hair-clay': '/assets/products/matte-clay.jpg',
-  'royal-oud-argan-beard-oil': '/assets/products/beard-oil.jpg',
-  'charcoal-detan-face-scrub': '/assets/products/detan-scrub.jpg',
-  'sea-salt-volume-spray': '/assets/products/sea-salt-mist.jpg',
-  'sandalwood-cooling-aftershave': '/assets/products/aftershave-balm.jpg',
-  'keratin-repair-hair-serum': '/assets/products/hair-serum.jpg',
+  'matte-molding-hair-clay': '/assets/products/matte-clay.webp',
+  'royal-oud-argan-beard-oil': '/assets/products/beard-oil.webp',
+  'charcoal-detan-face-scrub': '/assets/products/detan-scrub.webp',
+  'sea-salt-volume-spray': '/assets/products/sea-salt-mist.webp',
+  'sandalwood-cooling-aftershave': '/assets/products/aftershave-balm.webp',
+  'keratin-repair-hair-serum': '/assets/products/hair-serum.webp',
 };
 
 export const ProductsSection: React.FC = () => {

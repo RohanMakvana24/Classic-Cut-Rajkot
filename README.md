@@ -21,6 +21,14 @@ npm run preview
 
 The production output is written to `dist/`.
 
+## Optimize images
+
+```sh
+npm run optimize:images
+```
+
+This creates appropriately sized WebP assets from the original PNG/JPEG sources, preserves transparency, updates image references and writes size comparisons to `reports/image-optimization.json`. Originals remain available for future edits.
+
 ## Features
 
 - Responsive service cards with 3D character illustrations

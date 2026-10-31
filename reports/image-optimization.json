@@ -1,0 +1,209 @@
+[
+  {
+    "source": "/assets/aistudio/image_5ddfe75b.png",
+    "output": "/assets/aistudio/image_5ddfe75b.webp",
+    "before": 2391652,
+    "after": 120864,
+    "width": 1672,
+    "height": 941,
+    "alpha": false
+  },
+  {
+    "source": "/assets/aistudio/image_c6e6f2ed.png",
+    "output": "/assets/aistudio/image_c6e6f2ed.webp",
+    "before": 731187,
+    "after": 62804,
+    "width": 474,
+    "height": 931,
+    "alpha": false
+  },
+  {
+    "source": "/assets/brand/classic-cut-icon-cropped.png",
+    "output": "/assets/brand/classic-cut-icon-cropped.webp",
+    "before": 410835,
+    "after": 13982,
+    "width": 224,
+    "height": 240,
+    "alpha": true
+  },
+  {
+    "source": "/assets/characters/men-and-kids-3d.png",
+    "output": "/assets/characters/men-and-kids-3d.webp",
+    "before": 1072509,
+    "after": 55768,
+    "width": 720,
+    "height": 720,
+    "alpha": true
+  },
+  {
+    "source": "/assets/characters/services/beard.png",
+    "output": "/assets/characters/services/beard.webp",
+    "before": 1701144,
+    "after": 35564,
+    "width": 480,
+    "height": 720,
+    "alpha": true
+  },
+  {
+    "source": "/assets/characters/services/combo.png",
+    "output": "/assets/characters/services/combo.webp",
+    "before": 1660425,
+    "after": 32840,
+    "width": 480,
+    "height": 720,
+    "alpha": true
+  },
+  {
+    "source": "/assets/characters/services/facial.png",
+    "output": "/assets/characters/services/facial.webp",
+    "before": 1679985,
+    "after": 33254,
+    "width": 480,
+    "height": 720,
+    "alpha": true
+  },
+  {
+    "source": "/assets/characters/services/fade.png",
+    "output": "/assets/characters/services/fade.webp",
+    "before": 1861108,
+    "after": 38100,
+    "width": 480,
+    "height": 720,
+    "alpha": true
+  },
+  {
+    "source": "/assets/characters/services/haircut.png",
+    "output": "/assets/characters/services/haircut.webp",
+    "before": 1720607,
+    "after": 34858,
+    "width": 480,
+    "height": 720,
+    "alpha": true
+  },
+  {
+    "source": "/assets/characters/services/kids.png",
+    "output": "/assets/characters/services/kids.webp",
+    "before": 1787728,
+    "after": 35400,
+    "width": 480,
+    "height": 720,
+    "alpha": true
+  },
+  {
+    "source": "/assets/hairstyles/classic-side-part.png",
+    "output": "/assets/hairstyles/classic-side-part.webp",
+    "before": 2039180,
+    "after": 32248,
+    "width": 768,
+    "height": 768,
+    "alpha": false
+  },
+  {
+    "source": "/assets/hairstyles/modern-quiff.png",
+    "output": "/assets/hairstyles/modern-quiff.webp",
+    "before": 2148573,
+    "after": 39156,
+    "width": 768,
+    "height": 768,
+    "alpha": false
+  },
+  {
+    "source": "/assets/hairstyles/textured-crop.png",
+    "output": "/assets/hairstyles/textured-crop.webp",
+    "before": 2162197,
+    "after": 35544,
+    "width": 768,
+    "height": 768,
+    "alpha": false
+  },
+  {
+    "source": "/assets/location/classic-cut-neighborhood.png",
+    "output": "/assets/location/classic-cut-neighborhood.webp",
+    "before": 2384691,
+    "after": 171482,
+    "width": 1600,
+    "height": 900,
+    "alpha": false
+  },
+  {
+    "source": "/assets/products/aftershave-balm.jpg",
+    "output": "/assets/products/aftershave-balm.webp",
+    "before": 58507,
+    "after": 32296,
+    "width": 700,
+    "height": 700,
+    "alpha": false
+  },
+  {
+    "source": "/assets/products/beard-oil.jpg",
+    "output": "/assets/products/beard-oil.webp",
+    "before": 51684,
+    "after": 28288,
+    "width": 700,
+    "height": 700,
+    "alpha": false
+  },
+  {
+    "source": "/assets/products/detan-scrub.jpg",
+    "output": "/assets/products/detan-scrub.webp",
+    "before": 56169,
+    "after": 32282,
+    "width": 700,
+    "height": 700,
+    "alpha": false
+  },
+  {
+    "source": "/assets/products/hair-serum.jpg",
+    "output": "/assets/products/hair-serum.webp",
+    "before": 45546,
+    "after": 23132,
+    "width": 700,
+    "height": 700,
+    "alpha": false
+  },
+  {
+    "source": "/assets/products/matte-clay.jpg",
+    "output": "/assets/products/matte-clay.webp",
+    "before": 63770,
+    "after": 37328,
+    "width": 700,
+    "height": 700,
+    "alpha": false
+  },
+  {
+    "source": "/assets/products/sea-salt-mist.jpg",
+    "output": "/assets/products/sea-salt-mist.webp",
+    "before": 54475,
+    "after": 29622,
+    "width": 700,
+    "height": 700,
+    "alpha": false
+  },
+  {
+    "source": "/assets/team/member-2.jpg",
+    "output": "/assets/team/member-2.webp",
+    "before": 6441,
+    "after": 6574,
+    "width": 225,
+    "height": 225,
+    "alpha": false
+  },
+  {
+    "source": "/assets/team/member-3.jpg",
+    "output": "/assets/team/member-3.webp",
+    "before": 8155,
+    "after": 3096,
+    "width": 200,
+    "height": 200,
+    "alpha": false
+  },
+  {
+    "source": "/assets/team/member-6.jpg",
+    "output": "/assets/team/member-6.webp",
+    "before": 29318,
+    "after": 19942,
+    "width": 400,
+    "height": 400,
+    "alpha": false
+  }
+]

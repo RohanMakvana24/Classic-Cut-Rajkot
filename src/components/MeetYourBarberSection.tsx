@@ -56,7 +56,7 @@ export const MeetYourBarberSection: React.FC = () => {
             <span className="meet-salon__orbit meet-salon__orbit--one" aria-hidden="true" />
             <span className="meet-salon__orbit meet-salon__orbit--two" aria-hidden="true" />
             <div className="meet-salon__floor" aria-hidden="true" />
-            <SkeletonImage skeletonClassName="image-skeleton--portrait" src="/assets/characters/men-and-kids-3d.png" alt="Friendly 3D adult and child characters with freshly styled hair, standing together" loading="lazy" decoding="async" width="1254" height="1254" />
+            <SkeletonImage skeletonClassName="image-skeleton--portrait" src="/assets/characters/men-and-kids-3d.webp" alt="Friendly 3D adult and child characters with freshly styled hair, standing together" loading="lazy" decoding="async" width="1254" height="1254" />
             <span className="meet-salon__sticker"><Scissors size={14} /> A little confidence<br /><strong>looks good on everyone.</strong></span>
             <span className="meet-salon__stage-caption">MEN’S GROOMING <span>✦</span> KIDS’ CUTS</span>
           </div>

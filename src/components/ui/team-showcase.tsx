@@ -28,14 +28,14 @@ const DEFAULT_MEMBERS: TeamMember[] = [
     id: '2',
     name: 'Mak VieSAinte',
     role: 'FOUNDER',
-    image: '/assets/team/member-2.jpg',
+    image: '/assets/team/member-2.webp',
     social: { twitter: '#', linkedin: '#' },
   },
   {
     id: '3',
     name: 'Osiris Balonga',
     role: 'LEAD FRONT-END',
-    image: '/assets/team/member-3.jpg',
+    image: '/assets/team/member-3.webp',
     social: { twitter: '#', linkedin: '#' },
   },
   {
@@ -56,7 +56,7 @@ const DEFAULT_MEMBERS: TeamMember[] = [
     id: '6',
     name: 'Jemima',
     role: 'MAKE-UP ARTISTE',
-    image: '/assets/team/member-6.jpg',
+    image: '/assets/team/member-6.webp',
     social: { instagram: '#' } as TeamMember['social'],
   },
 ];

@@ -3,6 +3,7 @@ import { Phone, MapPin, Instagram, ArrowUpRight, ArrowUp, Calendar } from 'lucid
 import { BUSINESS_INFO, ThemeMode } from '../data/barbershopData';
 import { BrandLogo } from './BrandLogo';
 import './Footer.css';
+import HalftoneWordmark from './ui/halftone-wordmark';
 
 interface FooterProps {
   theme?: ThemeMode;
@@ -29,13 +30,10 @@ export const Footer: React.FC<FooterProps> = ({ theme = 'dark' }) => (
         <div className="salon-footer__connect"><h3>LET’S TALK</h3><a href={BUSINESS_INFO.phoneHref}><Phone size={14} /><span>{BUSINESS_INFO.phoneDisplay}</span><ArrowUpRight size={13} /></a><a href={BUSINESS_INFO.instagramUrl} target="_blank" rel="noopener noreferrer"><Instagram size={14} /><span>{BUSINESS_INFO.instagramHandle}</span><ArrowUpRight size={13} /></a><a href="#contact"><MapPin size={14} /><span>Pedak Cross Road, Opp. Umiya R.O.<br />Arya Nagar, Rajkot, Gujarat 360003</span><ArrowUpRight size={13} /></a></div>
       </div>
 
-      <a href="#top" className="salon-footer__wordmark" aria-label="Classic Cut Salon — back to top">
-        <svg viewBox="0 0 1400 200" fill="none" aria-hidden="true" focusable="false">
-          <defs><linearGradient id="footer-wordmark-gold" x1="0" y1="0" x2="1400" y2="200" gradientUnits="userSpaceOnUse"><stop className="salon-footer__wordmark-stop-one" /><stop offset=".5" className="salon-footer__wordmark-stop-two" /><stop offset="1" className="salon-footer__wordmark-stop-three" /></linearGradient></defs>
-          <text x="0" y="167" textLength="1400" lengthAdjust="spacingAndGlyphs" fill="url(#footer-wordmark-gold)">CLASSIC CUT</text>
-        </svg>
+      <div className="salon-footer__wordmark">
+        <HalftoneWordmark wordmark="CLASSIC CUT" background={theme === 'light' ? '#FAF6EE' : '#100D09'} ink={theme === 'light' ? '#6E4D2B' : '#E7C58E'} warm={theme === 'light' ? '#B7782E' : '#FFF0CE'} />
         <span className="salon-footer__wordmark-caption"><span>GOOD HAIR. GREAT DAYS.</span><span>MEN’S GROOMING &amp; KIDS’ CUTS</span><span>SALON · RAJKOT</span></span>
-      </a>
+      </div>
 
       <div className="salon-footer__bottom"><p>© {new Date().getFullYear()} Classic Cut Salon. All rights reserved.</p><span>Crafted for your everyday confidence.</span><a href="#top">Back to top <ArrowUp size={13} /></a></div>
     </div>
