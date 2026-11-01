@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Phone, MapPin, Instagram, ArrowUpRight, ArrowUp, Calendar } from 'lucide-react';
 import { BUSINESS_INFO, ThemeMode } from '../data/barbershopData';
 import { BrandLogo } from './BrandLogo';
@@ -25,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ theme = 'dark' }) => (
       </div>
 
       <div className="salon-footer__grid">
-        <div className="salon-footer__brand"><BrandLogo size="lg" theme={theme} className="salon-footer__logo" /><p>Thoughtful cuts. Confident finishes.<br />A little everyday luxury, right here in Rajkot.</p><span className="salon-footer__local"><span /> ARYA NAGAR, RAJKOT</span></div>
+        <div className="salon-footer__brand"><BrandLogo size="default" theme={theme} className="salon-footer__logo" /><p>Thoughtful cuts. Confident finishes.<br />A little everyday luxury, right here in Rajkot.</p><span className="salon-footer__local"><span /> ARYA NAGAR, RAJKOT</span></div>
         <nav className="salon-footer__explore" aria-label="Footer navigation"><h3>TAKE A LOOK AROUND</h3><div>{EXPLORE.map(([label, href]) => <a href={href} key={href}>{label}<ArrowUpRight size={12} /></a>)}</div></nav>
         <div className="salon-footer__connect"><h3>LET’S TALK</h3><a href={BUSINESS_INFO.phoneHref}><Phone size={14} /><span>{BUSINESS_INFO.phoneDisplay}</span><ArrowUpRight size={13} /></a><a href={BUSINESS_INFO.instagramUrl} target="_blank" rel="noopener noreferrer"><Instagram size={14} /><span>{BUSINESS_INFO.instagramHandle}</span><ArrowUpRight size={13} /></a><a href="#contact"><MapPin size={14} /><span>Pedak Cross Road, Opp. Umiya R.O.<br />Arya Nagar, Rajkot, Gujarat 360003</span><ArrowUpRight size={13} /></a></div>
       </div>

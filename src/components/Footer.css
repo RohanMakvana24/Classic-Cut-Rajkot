@@ -11,11 +11,12 @@ html[data-theme='light'] .salon-footer { --footer-bg: #faf6ee; --footer-ink: #2d
 .salon-footer__book:hover .salon-footer__book-arrow { background: #f1d4a2; transform: rotate(45deg); }
 .salon-footer__grid { display: grid; grid-template-columns: 1.15fr 1.1fr 1fr; gap: 52px; padding: 47px 0 48px; }
 .salon-footer__brand > p { color: var(--footer-muted); font-size: 11px; line-height: 1.9; margin-top: 20px; }
-.salon-footer__logo { gap: 13px; }
-.salon-footer__logo > img { width: 47px; height: 51px; object-fit: contain; flex-shrink: 0; }
+.salon-footer__logo { --footer-logo-size: 21px; gap: 10px; }
+.salon-footer__logo > img { width: 28px; height: 32px; object-fit: contain; flex-shrink: 0; }
+.salon-footer__logo > span > span:first-child > span { font-size: var(--footer-logo-size); line-height: 1; letter-spacing: .02em; }
 .salon-footer__logo > span > span:first-child > span:first-child { color: var(--footer-ink); }
 .salon-footer__logo > span > span:first-child > span:last-child { color: var(--footer-gold); }
-.salon-footer__logo > span > span:last-child > span:nth-child(2) { color: var(--footer-muted); }
+.salon-footer__logo > span > span:last-child > span:nth-child(2) { color: var(--footer-muted); font-size: 7.5px; letter-spacing: .45em; }
 .salon-footer__local { display: inline-flex; align-items: center; gap: 8px; color: var(--footer-gold); font-size: 7px; letter-spacing: .16em; margin-top: 19px; }
 .salon-footer__local > span { width: 4px; height: 4px; border-radius: 50%; background: var(--footer-gold); }
 .salon-footer__grid h3 { font-size: 8px; font-weight: 600; color: var(--footer-gold); letter-spacing: .19em; margin: 6px 0 22px; }
@@ -44,7 +45,8 @@ html[data-theme='light'] .salon-footer { --footer-bg: #faf6ee; --footer-ink: #2d
   .salon-footer__book-arrow { width: 43px; height: 43px; }
   .salon-footer__book > span:first-child { font-size: 8px; }
   .salon-footer__grid { gap: 30px 23px; padding: 31px 0; grid-template-columns: 1fr 1fr; }
-  .salon-footer__logo > img { width: 40px; height: 44px; }
+  .salon-footer__logo { --footer-logo-size: 19px; gap: 8px; }
+  .salon-footer__logo > img { width: 24px; height: 28px; }
   .salon-footer__brand > p { margin-top: 15px; font-size: 11px; }
   .salon-footer__local { font-size: 7px; margin-top: 15px; }
   .salon-footer__grid h3 { font-size: 7px; margin-bottom: 17px; letter-spacing: .14em; }
