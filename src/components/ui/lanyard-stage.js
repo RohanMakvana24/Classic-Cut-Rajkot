@@ -25,7 +25,6 @@ class LanyardStage {
     this.canvas.className = 'lanyard-stage-canvas';
     this.canvas.setAttribute('aria-hidden', 'true');
     element.appendChild(this.canvas);
-    this.onScroll = () => { this.dirtyBounds = true; this.request(); };
     this.onVisibility = () => {
       if (document.hidden) { cancelAnimationFrame(this.frame); this.frame = 0; }
       else { this.dirtyBounds = true; this.request(); }
@@ -35,7 +34,6 @@ class LanyardStage {
       for (const rig of [...this.rigs]) rig.canvas.dispatchEvent(new Event('webglcontextlost', { cancelable: true }));
     };
     this.canvas.addEventListener('webglcontextlost', this.onContextLost);
-    element.addEventListener('scroll', this.onScroll, { passive: true });
     document.addEventListener('visibilitychange', this.onVisibility);
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(element);
@@ -49,13 +47,18 @@ class LanyardStage {
   }
 
   resize() {
-    const width = Math.max(1, this.element.clientWidth);
+    // Keep the canvas in scrolling content coordinates. Native scrolling can then
+    // move the cached deck on the compositor without a WebGL redraw per scroll.
+    const track = this.element.querySelector('.community-deck__track');
+    const width = Math.max(1, this.element.clientWidth, track?.offsetWidth || 0);
     const height = Math.max(1, this.element.clientHeight);
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(1200000 / (width * height)));
     if (width === this.width && height === this.height && dpr === this.dpr) return;
     this.width = width; this.height = height; this.dpr = dpr;
     this.renderer.setPixelRatio(dpr);
     this.renderer.setSize(width, height, false);
+    this.canvas.style.width = `${width}px`;
+    this.canvas.style.height = `${height}px`;
     this.camera.right = width; this.camera.top = height; this.camera.updateProjectionMatrix();
     for (const rig of this.rigs) { rig.dirty = true; this.sizeTarget(rig); }
     this.dirtyBounds = true;
@@ -81,10 +84,9 @@ class LanyardStage {
 
   measure() {
     const stage = this.element.getBoundingClientRect();
-    this.canvas.style.transform = `translate3d(${this.element.scrollLeft}px,${this.element.scrollTop}px,0)`;
     for (const rig of this.rigs) {
       const box = rig.canvas.getBoundingClientRect();
-      const x = box.left - stage.left, y = box.top - stage.top;
+      const x = box.left - stage.left + this.element.scrollLeft, y = box.top - stage.top + this.element.scrollTop;
       rig.inView = x < this.width && x + box.width > 0 && y < this.height && y + box.height > 0;
       rig.plane.position.set(x + box.width / 2, this.height - y - box.height / 2, 0);
       rig.plane.scale.set(box.width, box.height, 1);
@@ -174,7 +176,6 @@ class LanyardStage {
     this.disposed = true;
     cancelAnimationFrame(this.frame);
     this.resizeObserver.disconnect(); this.visibilityObserver.disconnect();
-    this.element.removeEventListener('scroll', this.onScroll);
     document.removeEventListener('visibilitychange', this.onVisibility);
     this.canvas.removeEventListener('webglcontextlost', this.onContextLost);
     this.geometry.dispose(); this.environment.dispose();

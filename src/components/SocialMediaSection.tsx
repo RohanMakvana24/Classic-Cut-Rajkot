@@ -1,4 +1,4 @@
-import { useCallback, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, MapPin, Play, Quote } from 'lucide-react';
 import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
@@ -40,6 +40,16 @@ export function SocialMediaSection() {
   const stageRef = useRef<HTMLDivElement>(null);
   const getStage = useCallback(() => stageRef.current, []);
   const slots = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const gesture = useRef<{ x: number; y: number; index: number; left: number; axis: 'horizontal' | 'vertical' | null } | null>(null);
+  const dragFrame = useRef(0);
+  useEffect(() => () => { if (scrollTimer.current) clearTimeout(scrollTimer.current); cancelAnimationFrame(dragFrame.current); }, []);
+  const nearestCard = () => {
+    const stage = stageRef.current; if (!stage) return 0;
+    const center = stage.scrollLeft + stage.clientWidth / 2;
+    const distances = slots.current.map(slot => slot ? Math.abs(slot.offsetLeft + slot.clientWidth / 2 - center) : Infinity);
+    return distances.indexOf(Math.min(...distances));
+  };
   const select = (index: number) => {
     const next = (index + PROFILES.length) % PROFILES.length;
     setActive(next);
@@ -48,6 +58,15 @@ export function SocialMediaSection() {
     if (stage && slot && stage.scrollWidth > stage.clientWidth) {
       stage.scrollTo({ left: slot.offsetLeft - (stage.clientWidth - slot.clientWidth) / 2, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     }
+  };
+  const syncAfterScroll = () => {
+    if (scrollTimer.current) clearTimeout(scrollTimer.current);
+    scrollTimer.current = setTimeout(() => {
+      scrollTimer.current = null;
+      if (gesture.current?.axis === 'horizontal') return;
+      stageRef.current?.removeAttribute('data-touch-scrolling');
+      setActive(nearestCard());
+    }, 140);
   };
   return (
     <section id="social" className="salon-social" aria-labelledby="social-heading">
@@ -64,16 +83,48 @@ export function SocialMediaSection() {
             const next = event.key === 'Home' ? 0 : event.key === 'End' ? PROFILES.length - 1 : (active + (event.key === 'ArrowRight' ? 1 : -1) + PROFILES.length) % PROFILES.length;
             select(next);
             slots.current[next]?.querySelector<HTMLButtonElement>('.community-deck__dot')?.focus({ preventScroll: true });
+          }} onTouchStart={event => {
+            gesture.current = null;
+            const stage = stageRef.current;
+            if (event.touches.length !== 1 || !stage || stage.scrollWidth <= stage.clientWidth) return;
+            stage.scrollTo({ left: stage.scrollLeft, behavior: 'auto' });
+            gesture.current = { x: event.touches[0].clientX, y: event.touches[0].clientY, index: nearestCard(), left: stage.scrollLeft, axis: null };
+          }} onTouchMove={event => {
+            const start = gesture.current;
+            const stage = stageRef.current;
+            if (!start || !stage || event.touches.length !== 1) return;
+            const dx = event.touches[0].clientX - start.x;
+            const dy = event.touches[0].clientY - start.y;
+            if (!start.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 8) start.axis = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+            if (start.axis !== 'horizontal') return;
+            stage.dataset.touchScrolling = 'true';
+            cancelAnimationFrame(dragFrame.current);
+            dragFrame.current = requestAnimationFrame(() => {
+              dragFrame.current = 0;
+              stage.scrollLeft = start.left - dx;
+            });
+          }} onTouchEnd={event => {
+            const start = gesture.current; gesture.current = null;
+            cancelAnimationFrame(dragFrame.current); dragFrame.current = 0;
+            if (!start || event.touches.length || !event.changedTouches.length) return;
+            const dx = event.changedTouches[0].clientX - start.x;
+            if (start.axis === 'horizontal') {
+              const step = Math.abs(dx) > 45 ? (dx < 0 ? 1 : -1) : 0;
+              select(Math.max(0, Math.min(PROFILES.length - 1, start.index + step)));
+              syncAfterScroll();
+            }
+          }} onTouchCancel={() => {
+            gesture.current = null;
+            cancelAnimationFrame(dragFrame.current); dragFrame.current = 0;
+            select(nearestCard()); syncAfterScroll();
           }} onScroll={() => {
             const stage = stageRef.current;
             if (!stage || stage.scrollWidth <= stage.clientWidth) return;
-            const center = stage.scrollLeft + stage.clientWidth / 2;
-            const distances = slots.current.map(slot => slot ? Math.abs(slot.offsetLeft + slot.clientWidth / 2 - center) : Infinity);
-            setActive(distances.indexOf(Math.min(...distances)));
+            syncAfterScroll();
           }}>
             <div className="community-deck__track">
               <div className="community-deck__support" aria-hidden="true"><span /><span /></div>
-              {PROFILES.map((profile, index) => <div className="community-deck__slot" key={profile.id} data-platform={profile.id} data-active={active === index} ref={node => { slots.current[index] = node; }} onMouseEnter={() => setActive(index)} onFocusCapture={() => setActive(index)}>
+              {PROFILES.map((profile, index) => <div className="community-deck__slot" key={profile.id} data-platform={profile.id} data-active={active === index} ref={node => { slots.current[index] = node; }} onPointerEnter={event => { if (event.pointerType === 'mouse') setActive(index); }} onFocusCapture={() => setActive(index)}>
                 <div className="community-deck__assembly">
                   <SocialLanyardCard profile={profile} index={index} theme={theme} review={CARD_REVIEW} isSelected={active === index} getStage={getStage}>
                   <div className="community-deck__connector" aria-hidden="true"><i /><span /></div>

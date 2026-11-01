@@ -13,6 +13,8 @@ html[data-theme='dark'] .salon-social { --social-bg:#100d0a; --social-ink:#f5eee
 .community-deck { margin-top:46px; }
 .community-deck__stage { position:relative; height:620px; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; }
 .community-deck__stage::-webkit-scrollbar { display:none; }
+.community-deck__stage { touch-action:pan-y pinch-zoom; }
+.community-deck__stage[data-touch-scrolling='true'] { scroll-snap-type:none; }
 .community-deck__track { position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px; width:100%; padding:18px 28px 14px; }
 /* A flat matte support, with a fine brass edge and flush end caps. */
 .community-deck__support { position:absolute; inset:18px 9px auto; height:12px; border:1px solid #3b3128; border-radius:4px; background:linear-gradient(#574b3e,#302820 32%,#27211c 76%,#42362a); box-shadow:0 1px 0 #c3a67966 inset,0 5px 8px -3px #3224163d; }
@@ -88,9 +90,9 @@ html[data-theme='dark'] .community-deck__slot:not([data-platform='instagram']) .
 /* A complete, centered card per phone screen; horizontal gestures change cards. */
 @media(max-width:639px) {
   .community-deck { --social-mobile-card:min(340px,calc(100vw - 56px)); --social-lanyard-height:clamp(490px,138vw,540px); }
-  .community-deck__stage { height:calc(var(--social-lanyard-height) + 64px); touch-action:pan-x pan-y pinch-zoom; }
+  .community-deck__stage { height:calc(var(--social-lanyard-height) + 64px); }
   .community-deck__track { width:max-content; min-width:100%; gap:calc(100vw - var(--social-mobile-card)); padding-inline:calc((100vw - var(--social-mobile-card))/2); }
-  .community-deck__slot { flex:0 0 var(--social-mobile-card); width:var(--social-mobile-card); scroll-snap-stop:always; }
+  .community-deck__slot { flex:0 0 var(--social-mobile-card); width:var(--social-mobile-card); }
   .community-deck__dot { width:44px; height:44px; margin-top:4px; }
   .community-deck__footer button { width:44px; height:44px; }
 }

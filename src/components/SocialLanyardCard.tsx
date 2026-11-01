@@ -60,8 +60,8 @@ export function SocialLanyardCard({ profile, index, theme, review, children, isS
     const root = rootRef.current; if (!root) return;
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) { setNearby(true); observer.disconnect(); }
-    }, { rootMargin: '100px 0px' });
-    observer.observe(root); return () => observer.disconnect();
+    }, { rootMargin: '240px 0px' });
+    observer.observe(root.closest('.salon-social') || root); return () => observer.disconnect();
   }, []);
   useEffect(() => {
     if (!nearby || reduced || failed) return;
