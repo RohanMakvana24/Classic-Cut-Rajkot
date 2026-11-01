@@ -24,7 +24,7 @@ const RING_RADIUS = 0.095;
 const RING_TUBE = 0.0135;
 const EYELET_RADIUS = 0.036;
 const CLAMP_BODY = 0.15;
-const FACE_WIDTH = 768;
+const FACE_WIDTH = 1024;
 
 const FINISHES = {
   glossy: { roughness: 0.42, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.06, foil: 0, anisotropy: 0 },
@@ -434,7 +434,7 @@ const paintFace = (canvas, image, color, fit) => {
 };
 
 const paintStrap = (canvas, image, color) => {
-  const across = 192;
+  const across = 384;
   const along = image ? Math.max(64, Math.round((image.width / image.height) * across)) : across * 2;
   canvas.width = across;
   canvas.height = along;
@@ -1025,6 +1025,7 @@ const Lanyard = ({
       const finish = FINISHES[s.finish] || FINISHES.glossy;
       const card = parseColor(s.cardColor, [1, 1, 1]);
       [frontMaterial, backMaterial].forEach(material => {
+        material.normalScale.setScalar(s.finish === 'matte' ? 0 : 0.06);
         material.roughness = finish.roughness;
         material.metalness = finish.metalness;
         material.clearcoat = finish.clearcoat;

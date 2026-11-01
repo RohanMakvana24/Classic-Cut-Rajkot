@@ -83,7 +83,7 @@ export function SocialLanyardCard({ profile, index, theme, review, children, isS
       {enabled && textures && <LanyardBoundary onError={onError}><Suspense fallback={null}><Lanyard
         frontImage={textures.front} backImage={textures.back} strapImage={textures.strap}
         imageFit="cover" cardColor={theme === 'dark' || profile.id === 'instagram' ? '#27201a' : '#fffdf9'}
-        orientation="portrait" finish="glossy" cornerRadius={0.3} size={0.7} anchor="center"
+        orientation="portrait" finish="matte" cornerRadius={0.3} size={0.7} anchor="center"
         anchorInset={0.01} strapLength={0.08} strapColor="#211b16" strapWidth={0.65} metal="silver"
         gravity={1} damping={0.6} elasticity={0.45} breeze={isSelected && !compact ? 0.12 : 0} interactive intro={!compact} touchScroll
         className="social-lanyard__visual" flipSignal={flipSignal} getEventTarget={getEventTarget} getStage={getStage}

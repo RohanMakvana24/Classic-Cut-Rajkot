@@ -14,7 +14,7 @@ export interface SocialCardProfile {
 
 const WIDTH = 1024;
 const HEIGHT = 1440;
-const TEXTURE_SCALE = .75;
+const TEXTURE_SCALE = 1;
 const imageCache = new Map<string, Promise<HTMLImageElement | null>>();
 function loadImage(src: string) {
   if (!imageCache.has(src)) imageCache.set(src, new Promise(resolve => {
@@ -139,8 +139,9 @@ export async function createSocialCardTextures(profile: SocialCardProfile, index
   text(b, profile.action, 116, 1304, 34, '#30251b', 600, 'Plus Jakarta Sans'); arrow(b, 882, 1287, '#30251b');
   text(b, 'CLASSIC CUT / SOCIAL CLUB', 68, 1405, 20, '#a48d6d');
 
-  const strap = document.createElement('canvas'); strap.width = 160; strap.height = 96;
+  const strap = document.createElement('canvas'); strap.width = 320; strap.height = 192;
   const s = strap.getContext('2d'); if (!s) throw new Error('Canvas unavailable');
+  s.scale(2, 2);
   s.fillStyle = '#211b16'; s.fillRect(0, 0, 160, 96); s.strokeStyle = '#bda27666'; s.setLineDash([4, 4]); s.beginPath(); s.moveTo(0, 8); s.lineTo(160, 8); s.moveTo(0, 88); s.lineTo(160, 88); s.stroke();
   s.textAlign = 'center'; text(s, 'CC', 80, 65, 47, gold, 600);
   return { front, back, strap };

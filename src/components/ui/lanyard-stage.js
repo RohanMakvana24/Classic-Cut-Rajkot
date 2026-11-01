@@ -52,7 +52,9 @@ class LanyardStage {
     const track = this.element.querySelector('.community-deck__track');
     const width = Math.max(1, this.element.clientWidth, track?.offsetWidth || 0);
     const height = Math.max(1, this.element.clientHeight);
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(1200000 / (width * height)));
+    // Budget for the entire four-card strip, rather than a single viewport.
+    // A viewport-sized budget downsampled phone cards below their screen density.
+    const dpr = Math.min(Math.max(window.devicePixelRatio || 1, 1.5), 2, Math.sqrt(8000000 / (width * height)));
     if (width === this.width && height === this.height && dpr === this.dpr) return;
     this.width = width; this.height = height; this.dpr = dpr;
     this.renderer.setPixelRatio(dpr);
