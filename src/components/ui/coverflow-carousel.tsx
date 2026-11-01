@@ -78,6 +78,8 @@ export function CoverflowCarousel({
   const targetRef = React.useRef(0);
   const widthRef = React.useRef(0);
   const rafRef = React.useRef<number | null>(null);
+  const paintFrameRef = React.useRef<number | null>(null);
+  const draggedRef = React.useRef(false);
   const dragRef = React.useRef<{
     id: number;
     x: number;
@@ -142,7 +144,10 @@ export function CoverflowCarousel({
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         posRef.current = target; paint(); rafRef.current = null; return;
       }
-      const step = () => {
+      let previousTime = 0;
+      const step = (now: number) => {
+        const dt = previousTime ? Math.min(50, now - previousTime) : 1000 / 60;
+        previousTime = now;
         const remaining = target - posRef.current;
         if (Math.abs(remaining) < 0.0004) {
           posRef.current = target;
@@ -150,9 +155,7 @@ export function CoverflowCarousel({
           rafRef.current = null;
           return;
         }
-        // ponytail: exponential ease-out, not a spring. Swap in a spring only
-        // if the settle needs overshoot.
-        posRef.current += remaining * 0.16;
+        posRef.current += remaining * (1 - Math.exp(-dt / 96));
         paint();
         rafRef.current = requestAnimationFrame(step);
       };
@@ -183,6 +186,8 @@ export function CoverflowCarousel({
   );
 
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    draggedRef.current = false;
     if (rafRef.current !== null) {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
@@ -206,6 +211,7 @@ export function CoverflowCarousel({
     if (!pitch) return;
 
     const now = performance.now();
+    if (Math.abs(event.clientX - drag.x) > 6) draggedRef.current = true;
     const previous = posRef.current;
     posRef.current = clamp(drag.pos - (event.clientX - drag.x) / pitch);
     // Cards per second, for the throw.
@@ -214,13 +220,14 @@ export function CoverflowCarousel({
 
     const index = indexAt(posRef.current);
     if (index !== selected) setSelected(index);
-    paint();
+    if (paintFrameRef.current === null) paintFrameRef.current = requestAnimationFrame(() => { paintFrameRef.current = null; paint(); });
   };
 
   const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     const drag = dragRef.current;
     if (!drag || drag.id !== event.pointerId) return;
     dragRef.current = null;
+    if (paintFrameRef.current !== null) { cancelAnimationFrame(paintFrameRef.current); paintFrameRef.current = null; }
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
     // Let a flick carry, but never more than two cards.
     const carried = Math.max(-2, Math.min(2, event.type === "pointercancel" ? 0 : drag.v * 0.18));
@@ -249,6 +256,7 @@ export function CoverflowCarousel({
   React.useEffect(
     () => () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      if (paintFrameRef.current !== null) cancelAnimationFrame(paintFrameRef.current);
     },
     [],
   );
@@ -305,6 +313,7 @@ export function CoverflowCarousel({
                 aria-roledescription="slide"
                 aria-label={`${index + 1} of ${count}`}
                 onClick={() => {
+                  if (draggedRef.current) { draggedRef.current = false; return; }
                   if (selected === index) {
                     onCardClick?.(slide, index);
                   } else {

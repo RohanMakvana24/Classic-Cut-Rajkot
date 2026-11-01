@@ -36,7 +36,18 @@ const SERVICE_VISUALS: Record<string, { image: string; alt: string; title: strin
 export const ServicesSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategoryFilter>('all');
   const [activeCard, setActiveCard] = useState(0);
-  const [dragX, setDragX] = useState(0);
+  const deckRef = React.useRef<HTMLDivElement>(null);
+  const dragX = React.useRef(0);
+  const dragFrame = React.useRef(0);
+  React.useEffect(() => () => cancelAnimationFrame(dragFrame.current), []);
+  const paintDrag = () => {
+    dragFrame.current = 0;
+    const deck = deckRef.current; if (!deck) return;
+    deck.dataset.dragging = String(dragX.current !== 0);
+    deck.style.setProperty('--deck-drag', `${dragX.current}px`);
+    deck.style.setProperty('--deck-drag-tilt', `${dragX.current / 35}deg`);
+  };
+  const resetDrag = () => { cancelAnimationFrame(dragFrame.current); dragX.current = 0; paintDrag(); touchStart.current = null; };
   const touchStart = React.useRef<{ x: number; y: number } | null>(null);
   const didSwipe = React.useRef(false);
   const visibleServices = filterServicesByCategory(SERVICE_ITEMS, selectedCategory);
@@ -89,7 +100,7 @@ export const ServicesSection: React.FC = () => {
                     role="tab"
                     aria-selected={isActive}
                     type="button"
-                    onClick={() => { setSelectedCategory(tab.id); setActiveCard(0); setDragX(0); }}
+                    onClick={() => { setSelectedCategory(tab.id); setActiveCard(0); resetDrag(); }}
                     className={`px-3 py-2.5 sm:px-4 sm:py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-semibold tracking-[0.03em] sm:tracking-[0.06em] text-center transition-all cursor-pointer focus-ring ${
                       isActive
                         ? 'bg-gradient-to-r from-[#E8C27A] via-[#DFAF63] to-[#C58E3D] text-[#090705] shadow-[0_4px_16px_rgba(223,175,99,0.3)]'
@@ -106,8 +117,9 @@ export const ServicesSection: React.FC = () => {
 
         {/* Character-led service cards, with mobile swipe navigation. */}
         <div
+          ref={deckRef}
           className="service-deck grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7"
-          data-dragging={dragX !== 0}
+          data-dragging="false"
           role="region"
           aria-label="Services — swipe left or right on mobile"
           onTouchStart={(event) => {
@@ -120,15 +132,15 @@ export const ServicesSection: React.FC = () => {
             const dy = event.touches[0].clientY - touchStart.current.y;
             if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
               didSwipe.current = true;
-              setDragX(Math.max(-110, Math.min(110, dx)));
+              dragX.current = Math.max(-110, Math.min(110, dx));
+              if (!dragFrame.current) dragFrame.current = requestAnimationFrame(paintDrag);
             }
           }}
           onTouchEnd={() => {
-            if (Math.abs(dragX) > 40) setActiveCard((current) => (current + (dragX < 0 ? 1 : -1) + visibleServices.length) % visibleServices.length);
-            setDragX(0);
-            touchStart.current = null;
+            if (Math.abs(dragX.current) > 40) setActiveCard((current) => (current + (dragX.current < 0 ? 1 : -1) + visibleServices.length) % visibleServices.length);
+            resetDrag();
           }}
-          onTouchCancel={() => { setDragX(0); touchStart.current = null; }}
+          onTouchCancel={resetDrag}
           onClickCapture={(event) => {
             if (didSwipe.current) { event.preventDefault(); event.stopPropagation(); }
           }}
@@ -147,8 +159,7 @@ export const ServicesSection: React.FC = () => {
                 style={{
                   '--deck-position': position,
                   '--deck-depth': Math.abs(position),
-                  '--deck-drag': `${dragX}px`,
-                  '--deck-tilt': `${position === 0 ? dragX / 35 : 0}deg`,
+                  '--deck-tilt': position === 0 ? 'var(--deck-drag-tilt, 0deg)' : '0deg',
                   '--deck-opacity': position === 0 ? 1 : 0.6,
                   zIndex: visibleServices.length - Math.abs(position),
                 } as React.CSSProperties}

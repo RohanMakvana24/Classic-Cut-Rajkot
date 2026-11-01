@@ -327,8 +327,10 @@ const InfiniteMenu = ({
     let raf = 0;
     let timer = 0;
     let last = 0;
-    let visible = true;
+    let visible = false;
     let alive = true;
+    let reportedMoving = true;
+    const projection = new Float32Array(16);
 
     const layout = () => {
       const s = settingsRef.current;
@@ -543,7 +545,7 @@ const InfiniteMenu = ({
 
     const frame = now => {
       raf = 0;
-      if (!alive || !visible) return;
+      if (!alive || !visible || document.hidden) return;
       const s = settingsRef.current;
       const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
       last = now;
@@ -606,11 +608,11 @@ const InfiniteMenu = ({
       state.camera += (target - state.camera) * (1 - Math.exp(-dt * 4.5));
       // Keep captions hidden until the camera has returned from its drag pullback.
       const infoMoving = moving || Math.abs(target - state.camera) > 0.025 || state.reveal < 0.98;
-      setMoving(previous => previous === infoMoving ? previous : infoMoving);
+      if (reportedMoving !== infoMoving) { reportedMoving = infoMoving; setMoving(infoMoving); }
 
       if (s.autoplay > 0 && !moving && !state.hovered && !state.focused && !reduce) {
-        state.idle += dt;
-        if (state.idle >= s.autoplay) {
+        if (!state.idle) state.idle = now;
+        if (now - state.idle >= s.autoplay * 1000) {
           state.idle = 0;
           goTo(neighbor(state.front, [1, 0]));
         }
@@ -636,7 +638,7 @@ const InfiniteMenu = ({
         last = 0;
         if (s.autoplay > 0 && !state.hovered && !state.focused && !reduce) {
           clearTimeout(timer);
-          timer = window.setTimeout(wake, Math.max(16, (s.autoplay - state.idle) * 1000));
+          timer = window.setTimeout(wake, Math.max(16, s.autoplay * 1000 - (now - state.idle)));
         }
       }
     };
@@ -647,7 +649,7 @@ const InfiniteMenu = ({
       const f = 1 / Math.tan(FOV / 2);
       const near = 0.05;
       const far = 50;
-      const projection = new Float32Array([
+      projection.set([
         f / aspect,
         0,
         0,
@@ -703,7 +705,7 @@ const InfiniteMenu = ({
 
     const wake = () => {
       clearTimeout(timer);
-      if (raf || !alive || !visible) return;
+      if (raf || !alive || !visible || document.hidden) return;
       raf = requestAnimationFrame(frame);
     };
 
@@ -796,14 +798,19 @@ const InfiniteMenu = ({
     };
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      state.width = Math.max(1, root.clientWidth);
-      state.height = Math.max(1, root.clientHeight);
+      const width = Math.max(1, root.clientWidth);
+      const height = Math.max(1, root.clientHeight);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(1200000 / (width * height)));
+      if (state.width === width && state.height === height && canvas.width === Math.round(width * dpr)) return;
+      state.width = width;
+      state.height = height;
       canvas.width = Math.round(state.width * dpr);
       canvas.height = Math.round(state.height * dpr);
-      if (!raf) render();
       wake();
     };
+    const suspend = () => { cancelAnimationFrame(raf); raf = 0; clearTimeout(timer); last = 0; state.idle = 0; };
+    const onVisibility = () => { if (document.hidden) suspend(); else wake(); };
+    document.addEventListener('visibilitychange', onVisibility);
 
     engineRef.current = { loadItems, wake };
 
@@ -823,7 +830,7 @@ const InfiniteMenu = ({
       if (visible) {
         last = 0;
         wake();
-      }
+      } else suspend();
     });
     visibility.observe(root);
     layout();
@@ -845,6 +852,7 @@ const InfiniteMenu = ({
       root.removeEventListener('focusout', onFocusOut);
       resizeObserver.disconnect();
       visibility.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
       gl.deleteTexture(atlasTexture);
       gl.deleteBuffer(cornerBuffer);
       gl.deleteBuffer(indexBuffer);

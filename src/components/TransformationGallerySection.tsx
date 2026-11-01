@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useRef } from 'react';
 import { Instagram } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/barbershopData';
-import InfiniteMenu from './ui/InfiniteMenu';
+import { useElementInView, useTheme } from '../hooks/useActivity';
+import { GallerySkeleton } from './ui/gallery-skeleton';
 import { RisingInk } from './ui/rising-ink';
+
+const InfiniteMenu = lazy(() => import('./ui/InfiniteMenu'));
 
 const GALLERY_ITEMS = [
   { image: '/assets/hairstyles/textured-crop.webp', title: 'Textured Crop', description: 'Choppy texture with a clean low fade.' },
@@ -17,14 +20,9 @@ const GALLERY_ITEMS = [
 ];
 
 export const TransformationGallerySection = () => {
-  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
-  useEffect(() => {
-    const syncTheme = () => setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
-    syncTheme();
-    const observer = new MutationObserver(syncTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    return () => observer.disconnect();
-  }, []);
+  const theme = useTheme();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const nearby = useElementInView(stageRef, { once: true, rootMargin: '240px' });
   return (
   <section id="gallery" aria-labelledby="gallery-heading" className="relative overflow-hidden border-b border-[#DFAF63]/15 bg-[#0C0907] py-20 sm:py-28">
     <div className="relative w-full">
@@ -47,10 +45,10 @@ export const TransformationGallerySection = () => {
         </p>
       </div>
 
-      <div className="gallery-immersive-stage relative h-[520px] sm:h-[660px]">
-        <InfiniteMenu items={GALLERY_ITEMS} count={160} tileSize={0.63} roundness={0.2}
+      <div ref={stageRef} className="gallery-immersive-stage relative h-[520px] sm:h-[660px]">
+        {nearby ? <Suspense fallback={<GallerySkeleton />}><InfiniteMenu items={GALLERY_ITEMS} count={160} tileSize={0.63} roundness={0.2}
           zoom={1.65} pullBack={1} stretch={0.6} inertia={0.6} autoplay={3}
-          grayscale dim={0.5} intro showInfo theme={theme} accentColor={theme === 'light' ? '#2D2118' : '#E5B96F'} />
+          grayscale dim={0.5} intro showInfo theme={theme} accentColor={theme === 'light' ? '#2D2118' : '#E5B96F'} /></Suspense> : <GallerySkeleton />}
       </div>
 
       <div className="mt-9 flex justify-center">

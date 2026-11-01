@@ -1,3 +1,5 @@
+import { SUPPLIED_GOOGLE_REVIEWS } from './googleReviews';
+
 export interface BusinessContactInfo {
   name: string;
   shortName: string;
@@ -193,58 +195,17 @@ export const SERVICE_ITEMS: ServiceItem[] = [
   },
 ];
 
-export const FAITHFUL_REVIEWS: ReviewExcerpt[] = [
-  {
-    id: 'review-rajkot-master-cut',
-    reviewerName: 'Rajkot Local Client · Arya Nagar',
-    relativeDateSnapshot: 'Verified Rajkot Review',
-    verbatimQuote:
-      '"Best men’s salon on Pedak Cross Road in Rajkot! They take time to understand the exact haircut and fade you want and never rush the chair..."',
-    isTruncated: true,
-    mentionedHighlights: ['Pedak Road, Rajkot', 'Haircut & Fade', 'Unhurried Service'],
-    sourceNote: 'Verified local customer review excerpt for Classic Cut Salon, Rajkot.',
-  },
-  {
-    id: 'review-beard-and-fade',
-    reviewerName: 'Ranchod Nagar Regular Client',
-    relativeDateSnapshot: 'Verified Rajkot Review',
-    verbatimQuote:
-      '"Sharp skin fade and clean beard lineup every single visit. Easy to book a slot on WhatsApp or by calling ahead..."',
-    isTruncated: true,
-    mentionedHighlights: ['Skin Fade', 'Beard Styling', 'Quick Booking'],
-    sourceNote: 'Verified local customer review excerpt for Classic Cut Salon, Rajkot.',
-  },
-  {
-    id: 'review-kids-haircut',
-    reviewerName: 'Rajkot Family Reviewer',
-    relativeDateSnapshot: 'Verified Rajkot Review',
-    verbatimQuote:
-      '"Brought my son in for a haircut at Classic Cut Salon and the staff was patient, polite, and made sure the style looked sharp from every angle..."',
-    isTruncated: true,
-    mentionedHighlights: ["Children's Haircut", 'Patient Staff', 'Arya Nagar'],
-    sourceNote: 'Verified local customer review excerpt for Classic Cut Salon, Rajkot.',
-  },
-  {
-    id: 'review-neighborhood-barber',
-    reviewerName: 'Regular Customer · Rajkot',
-    relativeDateSnapshot: 'Verified Justdial & Google Snapshot',
-    verbatimQuote:
-      '"Great men’s grooming salon in Rajkot. Consistent haircuts, clean hygienic AC shop atmosphere, and great value for money..."',
-    isTruncated: true,
-    mentionedHighlights: ['Classic Cut Salon', 'Hygienic AC Salon', 'Value for Money'],
-    sourceNote: 'Verified local customer review excerpt for Classic Cut Salon, Rajkot.',
-  },
-  {
-    id: 'review-attention-to-detail',
-    reviewerName: 'Returning Grooming Client · Rajkot',
-    relativeDateSnapshot: 'Verified Rajkot Review',
-    verbatimQuote:
-      '"Attention to detail on scissor work, razor lineup, and de-tan grooming sets Classic Cut Salon apart in Rajkot. Always leave feeling fresh..."',
-    isTruncated: true,
-    mentionedHighlights: ['Scissor Work', 'Razor Lineup', 'De-Tan & Grooming'],
-    sourceNote: 'Verified local customer review excerpt for Classic Cut Salon, Rajkot.',
-  },
-];
+export const FAITHFUL_REVIEWS: ReviewExcerpt[] = SUPPLIED_GOOGLE_REVIEWS.map(
+  ([reviewerName, relativeDateSnapshot, verbatimQuote, isTruncated = false]) => ({
+    id: 'review-' + reviewerName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+    reviewerName,
+    relativeDateSnapshot,
+    verbatimQuote,
+    isTruncated,
+    mentionedHighlights: [],
+    sourceNote: 'Google review supplied by the salon owner; relative date as provided.',
+  }),
+);
 
 export const EVIDENCE_INVENTORY: EvidenceRecord[] = [
   {

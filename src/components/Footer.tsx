@@ -13,6 +13,7 @@ const EXPLORE = [
   ['Our Services', '#services'], ['Grooming Essentials', '#products'],
   ['Meet Your Salon', '#about'], ['Our Barbers', '#barbers'],
   ['Style Inspiration', '#gallery'], ['Client Stories', '#reviews'],
+  ['Stay Connected', '#social'],
 ];
 
 export const Footer: React.FC<FooterProps> = ({ theme = 'dark' }) => (

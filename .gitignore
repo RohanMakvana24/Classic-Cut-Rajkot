@@ -10,3 +10,6 @@ coverage/
 # Local duplicate checkout and editor-generated artifacts
 /Class-Cut-Salon-main/
 /.aistudio/
+
+# Local browser checks, screenshots and performance reports
+/output/

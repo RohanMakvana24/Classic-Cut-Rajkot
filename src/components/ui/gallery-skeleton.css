@@ -1,0 +1,4 @@
+.gallery-loading { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:clamp(14px,3vw,42px); overflow:hidden; pointer-events:none; }
+.gallery-loading__tile { position:relative; display:block; flex-shrink:0; width:clamp(135px,20vw,260px); aspect-ratio:.85; overflow:hidden; border:1px solid var(--border); border-radius:22px; opacity:.5; transform:rotate(-8deg) translateY(20px); }
+.gallery-loading__tile:nth-child(2) { width:clamp(190px,27vw,340px); opacity:1; transform:none; }
+.gallery-loading__tile:nth-child(3) { transform:rotate(8deg) translateY(20px); }

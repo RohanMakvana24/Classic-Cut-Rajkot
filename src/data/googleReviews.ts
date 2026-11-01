@@ -1,0 +1,27 @@
+// Google review text and relative dates supplied by the salon owner.
+// An ellipsis marks an excerpt where the supplied listing showed "More".
+export const SUPPLIED_GOOGLE_REVIEWS: [name: string, date: string, quote: string, truncated?: boolean][] = [
+  ['Harilall Yadav', '2 months ago', 'Needed a fresh cut before a meeting. They maintained proper hygiene. It felt like time well spent. The haircut looked natural and fresh. Payment process was quick and easy. Everything felt well managed during the visit. Satisfied with the haircut. 😊'],
+  ['Sabir hussain Luswala', '3 months ago', 'The trimming was precise and tidy. Tried this place for a simple trim. There was a sense of comfort throughout. The overall process felt organized. I liked the way they handled the details. No rush, they took their time. Worth the time and money. 👍'],
+  ['Mr. Patel', 'a month ago', 'My haircut and treatment experience was unsatisfactory. The other service and hospitality provided at this establishment was good. The outcome did not meet my expectations. 💇👎 …', true],
+  ['Sagar Dangar', '2 months ago', 'staff good\nservice good\nplace also so rich type\nAC place …', true],
+  ['chauhan dharmesh', '6 months ago', 'Yaha ka hair cutting bahut mast hai 💇‍♂️ Staff professional hai aur service clean thi. Mereko jo style chahiye tha wo perfect mila. Highly recommended 👍'],
+  ['daksh raiyani', '4 months ago', 'Classic Cut Salon—really clean work and great service. Loved the result. Definitely going back'],
+  ['Vipul Makwana', '4 months ago', 'No words for explaining my experience,\nEvery time i got new and extraordinary look, that boost my personality.\nThank you so much Parasbhai for this new and fresh look, I loved it.'],
+  ['JOGI BHAUTIK', '6 months ago', 'Amaizing good behaviour staff and well dressed like a professional person and very good for hair and beard i am definetly to suggest visit at classic cut salon'],
+  ['Vaibhav Yamgar', '3 months ago', 'Really good experience i have , personally suggest must visit'],
+  ['Akkiraj Rajput', '7 months ago', 'Mr Parasbhai very nice & classic cut very nice hair cutting & gromming staff is very help full and gorgeous our side first number Vip salon in our area'],
+  ['bhavik nimavat', '6 months ago', "It's Amezing experience\n\nVery very happy …", true],
+  ['Raj Kotadiya', '6 months ago', 'I had an amazing experience at classic cut salon! The salon was extremely clean and cozy. Stylish did a fantastic job on my highlights—exactly what I wanted. Friendly, professional, and great value. Highly recommend! …', true],
+  ['PRATHAM UBHADIYA', '6 months ago', 'Good service, informative staff and in affordable price'],
+  ['Kuldeep Jotangiya', '5 months ago', "Nice work and best haircut this saloon a very nice work I'm happy …", true],
+  ['Mohil Patel', '5 months ago', 'They owned very good and appreciable barbers. With good year of experience along with owner. …', true],
+  ['Bharat Makawana', '4 months ago', 'Great service and extremely good environment'],
+  ['HARDIK BHALSOD', '6 months ago', 'Truly excellent service and extra ordinary environment'],
+  ['Daksh patel', '6 months ago', 'The service was so good and the owners nature was best …', true],
+  ['vk godadalya', '5 months ago', 'Extremely good experience I have ,\nI loved it .\nMust visit.'],
+  ['Yash Shingala', '6 months ago', 'Best haircut & beard for men. Very experience staff. …', true],
+  ['Akshay Agarwal', '6 months ago', 'The salon’s ambience was so beautiful and feels like a premium Luxury Salon offering all services for men. Hairstylist were so professional and Skilled. Thanks Classic Cut salon for all services 😀 Highly recommended …', true],
+  ['Ashok Popat', '5 months ago', 'Everything is perfect. Good service and good staff and good behavior'],
+  ['2511 manav Padiya', '2 weeks ago', 'Best place for hair style …', true],
+];

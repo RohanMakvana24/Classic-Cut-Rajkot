@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { lazy, memo, Suspense, useCallback, useState, useEffect } from 'react';
 import {
   DEFAULT_HERO_CROP,
   HeroCropConfig,
@@ -18,17 +18,22 @@ import { MeetYourBarberSection } from './components/MeetYourBarberSection';
 import { OurBarbersSection } from './components/OurBarbersSection';
 import { TransformationGallerySection } from './components/TransformationGallerySection';
 import { CustomerReviewsSection } from './components/CustomerReviewsSection';
+import { SocialMediaSection } from './components/SocialMediaSection';
 import { VisitAndBookSection } from './components/VisitAndBookSection';
 import { Footer } from './components/Footer';
-import { DesignSystemPreviewModal } from './components/DesignSystemPreviewModal';
+const DesignSystemPreviewModal = lazy(() => import('./components/DesignSystemPreviewModal').then(module => ({ default: module.DesignSystemPreviewModal })));
+
+const SiteSections = memo(function SiteSections() {
+  return <><ServicesSection /><ProductsSection /><MeetYourBarberSection /><OurBarbersSection /><TransformationGallerySection /><CustomerReviewsSection /><SocialMediaSection /><VisitAndBookSection /></>;
+});
 
 export default function App() {
   const [theme, setTheme] = useState<ThemeMode>(() => {
     if (typeof window !== 'undefined') {
-      const saved = window.localStorage.getItem('relook-theme');
-      if (saved === 'light' || saved === 'dark') {
-        return saved;
-      }
+      try {
+        const saved = window.localStorage.getItem('relook-theme');
+        if (saved === 'light' || saved === 'dark') return saved;
+      } catch { /* Use the default theme when storage is unavailable. */ }
     }
     return 'light';
   });
@@ -46,14 +51,14 @@ export default function App() {
     }
   }, [theme]);
 
-  const handleToggleTheme = () => {
+  const handleToggleTheme = useCallback(() => {
     setTheme((prev) => getNextThemeMode(prev));
-  };
+  }, []);
 
-  const handleOpenInspector = (tab: 'layers' | 'tokens' | 'docs' = 'layers') => {
+  const handleOpenInspector = useCallback((tab: 'layers' | 'tokens' | 'docs' = 'layers') => {
     setInspectorTab(tab);
     setInspectorOpen(true);
-  };
+  }, []);
 
   return (
     <div
@@ -84,24 +89,12 @@ export default function App() {
           onOpenInspector={handleOpenInspector}
         />
 
-        <ServicesSection />
-
-        <ProductsSection />
-
-        <MeetYourBarberSection />
-
-        <OurBarbersSection />
-
-        <TransformationGallerySection />
-
-        <CustomerReviewsSection />
-
-        <VisitAndBookSection />
+        <SiteSections />
       </main>
 
       <Footer theme={theme} onOpenInspector={handleOpenInspector} />
 
-      <DesignSystemPreviewModal
+      {inspectorOpen && <Suspense fallback={null}><DesignSystemPreviewModal
         isOpen={inspectorOpen}
         initialTab={inspectorTab}
         onClose={() => setInspectorOpen(false)}
@@ -109,7 +102,7 @@ export default function App() {
         onChangeCropConfig={setCropConfig}
         customCutoutUrl={customCutoutUrl}
         onChangeCustomCutoutUrl={setCustomCutoutUrl}
-      />
+      /></Suspense>}
     </div>
   );
 }

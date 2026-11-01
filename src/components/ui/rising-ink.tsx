@@ -1,4 +1,4 @@
-import { ElementType, PointerEvent, useRef } from 'react';
+import { ElementType, PointerEvent, useEffect, useRef } from 'react';
 
 type RisingInkProps = {
   text: string;
@@ -23,18 +23,22 @@ export function RisingInk({
 }: RisingInkProps) {
   const rootRef = useRef<HTMLElement | null>(null);
   const frameRef = useRef<number | null>(null);
+  useEffect(() => () => { if (frameRef.current !== null) cancelAnimationFrame(frameRef.current); }, []);
 
   const updateLetters = (event: PointerEvent<HTMLElement>) => {
-    if (event.pointerType === 'touch' || !rootRef.current) return;
+    if (event.pointerType === 'touch' || !rootRef.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const pointerX = event.clientX;
     const pointerY = event.clientY;
 
     if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     frameRef.current = requestAnimationFrame(() => {
-      const letters = rootRef.current?.querySelectorAll<HTMLElement>('[data-rising-letter]');
-      letters?.forEach((letter) => {
-        const box = letter.getBoundingClientRect();
-        const fontSize = Number.parseFloat(getComputedStyle(letter).fontSize) || 48;
+      frameRef.current = null;
+      // Complete layout reads before changing any letter styles.
+      const letters = Array.from(rootRef.current?.querySelectorAll<HTMLElement>('[data-rising-letter]') ?? []);
+      const boxes = letters.map(letter => letter.getBoundingClientRect());
+      const fontSize = letters[0] ? Number.parseFloat(getComputedStyle(letters[0]).fontSize) || 48 : 48;
+      letters.forEach((letter, index) => {
+        const box = boxes[index];
         const dx = pointerX - (box.left + box.width / 2);
         const dy = pointerY - (box.top + box.height / 2);
         const distance = Math.hypot(dx, dy);
@@ -54,6 +58,7 @@ export function RisingInk({
   };
 
   const resetLetters = () => {
+    if (frameRef.current !== null) { cancelAnimationFrame(frameRef.current); frameRef.current = null; }
     rootRef.current?.querySelectorAll<HTMLElement>('[data-rising-letter]').forEach((letter) => {
       letter.style.removeProperty('--ink-rise');
       letter.style.removeProperty('--ink-depth');
