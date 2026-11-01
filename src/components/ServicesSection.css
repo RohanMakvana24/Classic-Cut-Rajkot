@@ -25,7 +25,8 @@ html[data-theme='light'] #services { --service-ink: #2f231a; --service-muted: #8
 @media (hover: hover) and (min-width: 768px) { .service-character-card:hover .service-character-card__stage > img { transform: translateX(-50%) translateY(-5px); } }
 @media (max-width: 767px) {
   #services .service-deck { margin: 0 10px; padding: 0; gap: 0; }
-  #services .service-deck-card { transform: translateX(calc(var(--deck-position) * (100% + 32px) + var(--deck-drag))) rotateY(var(--deck-tilt)); opacity: var(--deck-opacity); }
+  #services .service-deck-card { transform: translateX(calc(var(--deck-position) * (100% + 32px) + var(--deck-drag, 0px))) rotateY(var(--deck-tilt)); opacity: var(--deck-opacity); }
+  #services .service-deck[data-dragging='true'] .service-deck-card { transition: none; }
   #services .service-character-card { transform: none !important; }
   .service-character-card__stage { height: 242px; }
   .service-character-card__stage > img { height: 254px; }

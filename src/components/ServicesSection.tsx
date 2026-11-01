@@ -48,7 +48,7 @@ export const ServicesSection: React.FC = () => {
     deck.style.setProperty('--deck-drag-tilt', `${dragX.current / 35}deg`);
   };
   const resetDrag = () => { cancelAnimationFrame(dragFrame.current); dragX.current = 0; paintDrag(); touchStart.current = null; };
-  const touchStart = React.useRef<{ x: number; y: number } | null>(null);
+  const touchStart = React.useRef<{ x: number; y: number; axis: 'horizontal' | 'vertical' | null } | null>(null);
   const didSwipe = React.useRef(false);
   const visibleServices = filterServicesByCategory(SERVICE_ITEMS, selectedCategory);
 
@@ -123,21 +123,28 @@ export const ServicesSection: React.FC = () => {
           role="region"
           aria-label="Services — swipe left or right on mobile"
           onTouchStart={(event) => {
-            touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY };
+            resetDrag();
             didSwipe.current = false;
+            if (event.touches.length !== 1 || window.innerWidth >= 768) return;
+            touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY, axis: null };
           }}
           onTouchMove={(event) => {
-            if (!touchStart.current) return;
+            if (!touchStart.current || event.touches.length !== 1) return;
             const dx = event.touches[0].clientX - touchStart.current.x;
             const dy = event.touches[0].clientY - touchStart.current.y;
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+            if (!touchStart.current.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 8) {
+              touchStart.current.axis = Math.abs(dx) > Math.abs(dy) ? 'horizontal' : 'vertical';
+            }
+            if (touchStart.current.axis === 'horizontal') {
               didSwipe.current = true;
               dragX.current = Math.max(-110, Math.min(110, dx));
               if (!dragFrame.current) dragFrame.current = requestAnimationFrame(paintDrag);
             }
           }}
           onTouchEnd={() => {
-            if (Math.abs(dragX.current) > 40) setActiveCard((current) => (current + (dragX.current < 0 ? 1 : -1) + visibleServices.length) % visibleServices.length);
+            // Capture direction before resetting the ref; React may run the updater later.
+            const direction = dragX.current < 0 ? 1 : -1;
+            if (Math.abs(dragX.current) > 40) setActiveCard((current) => (current + direction + visibleServices.length) % visibleServices.length);
             resetDrag();
           }}
           onTouchCancel={resetDrag}
