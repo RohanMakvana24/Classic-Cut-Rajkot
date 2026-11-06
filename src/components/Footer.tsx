@@ -3,6 +3,7 @@ import { Phone, MapPin, Instagram, ArrowUpRight, ArrowUp, Calendar } from 'lucid
 import { BUSINESS_INFO, ThemeMode } from '../data/barbershopData';
 import { BrandLogo } from './BrandLogo';
 import './Footer.css';
+import { FooterWordmark } from './FooterWordmark';
 
 interface FooterProps {
   theme?: ThemeMode;
@@ -33,6 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ theme = 'dark' }) => (
     </div>
 
     <div className="salon-footer__inner salon-footer__inner--bottom">
+      <FooterWordmark />
       <div className="salon-footer__bottom"><p>© {new Date().getFullYear()} Classic Cut Salon. All rights reserved.</p><span>Crafted for your everyday confidence.</span><a href="#top">Back to top <ArrowUp size={13} /></a></div>
     </div>
   </footer>

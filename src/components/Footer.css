@@ -82,3 +82,9 @@ html[data-theme='light'] .salon-footer .salon-footer__logo > img {
   .salon-footer__bottom { font-size: 10px; }
   .salon-footer__bottom > span { font-size: 9px; }
 }
+
+/* A single complete name, with the barber-tool A crafted into CLASSIC. */
+.salon-footer__signature { display: flex; justify-content: center; align-items: center; padding: 25px 0 30px; border-top: 1px solid var(--footer-line); color: var(--footer-ink); }
+.salon-footer__signature-reference { display: block; width: min(100%, 1100px); height: auto; }
+.salon-footer__signature-subtitle { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 38px; letter-spacing: 9px; text-anchor: middle; }
+@media (max-width: 640px) { .salon-footer__signature { min-height: 150px; padding: 24px 0; } .salon-footer__signature-subtitle { font-size: 45px; letter-spacing: 7px; } }
