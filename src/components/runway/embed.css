@@ -1,0 +1,96 @@
+@font-face { font-family: Outfit; src: url('/fonts/outfit-normal-latin.woff2') format('woff2'); font-style: normal; font-weight: 100 900; font-display: swap; }
+@font-face { font-family: Jakarta; src: url('/fonts/plus-jakarta-sans-normal-latin.woff2') format('woff2'); font-style: normal; font-weight: 200 800; font-display: swap; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #faf6ee; font-family: Jakarta, sans-serif; }
+runway-section.rw { position: relative; --rw-c-stage: #faf6ee !important; --rw-c-panel: #faf6ee !important; --rw-c-text: #302319 !important; --rw-c-muted: #7b6b58 !important; --rw-c-accent: #302319 !important; --rw-c-line: #ba9a713d !important; --rw-hf: Outfit,sans-serif !important; --rw-panel-w: 38% !important; }
+.rw__grid { grid-template-columns: minmax(0, 62%) minmax(0,38%); }
+.rw__panel.has-rule { border: 0; }
+.rw__panel-inner { padding: 30px 0 6px 44px; }
+.rw__panel-head, .rw__intro { display: none; }
+.rw__head { min-height: 60px; padding: 8px 28px 0 0; align-items: flex-start; }
+.salon-stage-caption { display: flex; align-items: center; gap: 22px; margin: 0; padding-top: 13px; color: #8d6b42; font-size: 9px; font-weight: 500; letter-spacing: .17em; }
+.salon-stage-caption > span { color: #8d7c65; font-size: 9px; letter-spacing: .09em; font-variant-numeric: tabular-nums; }
+#open-bag { position: absolute; top: 8px; right: calc(38% + 12px); z-index: 35; padding: 0 10px; border: 1px solid #ba9a7147; border-radius: 50%; background: #faf6ee; color: #4a3523; }
+#open-bag:hover { background: #f1e8da; }
+.rw__art img { object-fit: contain; object-position: 50% 100%; }
+.rw__shadow { opacity: .55; }
+.rw__controls { padding: 10px 12px 14px 0; gap: 12px; }
+.rw__tick { flex-basis: 33px; }
+.rw__tick[aria-current='true'] { flex-basis: 150px; }
+.rw__tick-label { font-size: 10px; letter-spacing: .04em; }
+.rw__tick-name { letter-spacing: 0; }
+.rw__look-panel { justify-content: space-between; }
+.salon-product { margin: 0; padding: 0; }
+.salon-product-category { display: flex; align-items: center; gap: 13px; margin: 0 0 14px; color: #956e3d; font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.salon-product-category > span { font-weight: 400; letter-spacing: .02em; color: #8d7c65; padding-left: 13px; border-left: 1px solid #b69c7a6b; text-transform: none; }
+.salon-product-title { margin: 0; max-width: 420px; font-family: Outfit,sans-serif; font-size: clamp(28px,2.85vw,38px); font-weight: 500; line-height: 1.12; letter-spacing: -.035em; color: #302319; }
+.salon-finish { font-size: 11px; font-weight: 500; line-height: 1.7; color: #987344; margin: 12px 0 17px; }
+.salon-description { font-size: 12px; line-height: 1.9; color: #796955; margin: 0; }
+.salon-benefits { display: grid; gap: 9px; list-style: none; padding: 0; margin: 19px 0 0; color: #574632; font-size: 11px; line-height: 1.65; }
+.salon-benefits li { padding-left: 17px; position: relative; }
+.salon-benefits li::before { content: '✓'; position: absolute; left: 0; color: #977243; font-size: 10px; }
+.rw__bundle { padding: 20px 0 0; gap: 13px; background: transparent; }
+.rw__bundle.has-rule { border: 0; }
+.rw__msg:empty { display: none; }
+.salon-price-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+.salon-price-row strong { font-family: Outfit,sans-serif; font-size: 31px; font-weight: 500; letter-spacing: -.03em; color: #302319; }
+.salon-price-row > span { max-width: 120px; text-align: right; font-size: 9px; line-height: 1.6; color: #8d7c65; }
+.rw__cta { justify-content: space-between; min-height: 52px; padding-inline: 20px; background: #302319; color: #fff6e8; border: 1px solid #302319; font-family: Jakarta,sans-serif; font-size: 12px; font-weight: 500; letter-spacing: .01em; }
+.rw__cta:hover { background: #654a2e; border-color: #654a2e; }
+.rw__cta > span:last-child { font-size: 21px; font-weight: 300; }
+.salon-pickup { margin: 0; color: #8a7962; font-size: 8px; line-height: 1.5; letter-spacing: .015em; text-align: center; }
+.rw__look-panel.is-in .salon-product { animation: salon-product-in .65s cubic-bezier(.2,.7,.3,1) both; }
+@keyframes salon-product-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.bag-row img { object-fit: contain; background: #f6f1e8; }
+.salon-bag-quantity { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.salon-bag-quantity button { display: grid; place-items: center; min-width: 32px; min-height: 32px; background: #f3ede3; border: 1px solid #ddd2c0; cursor: pointer; }
+.salon-bag-quantity strong { margin-left: auto; font-size: 12px; font-weight: 500; }
+#order-bag { display: block; background: #302319; color: #fff6e8; padding: 16px; text-align: center; font-size: 13px; }
+@media (min-width:750px) and (max-width:1000px) {
+  .rw__grid { grid-template-columns: minmax(0,55%) minmax(0,45%); }
+  .rw__panel-inner { padding-left: 28px; padding-top: 16px; }
+  .salon-product-title { font-size: 29px; }
+  #open-bag { right: calc(45% + 6px); }
+  .salon-stage-caption { gap: 12px; font-size: 8px; letter-spacing: .08em; }
+  .rw__head { padding: 8px 20px 0 0; }
+  .rw__controls { gap: 3px; padding-right: 0; }
+  .rw__tick[aria-current='true'] { flex-basis: 75px; }
+  .rw__tick-name { display: none !important; }
+}
+@media (max-width:749px) {
+  .rw__sticky { height: auto !important; overflow: visible; }
+  .rw__grid { display: flex; flex-direction: column; overflow: visible; }
+  .rw__left { flex: none; padding: 0; overflow: hidden; }
+  .rw__head { min-height: 52px; padding: 0; }
+  .salon-stage-caption { font-size: 8px; letter-spacing: .12em; gap: 16px; padding-top: 17px; }
+  #open-bag { top: 1px; right: 1px; min-height: 40px; min-width: 40px; }
+  .rw__stage { flex: none; height: 300px; min-height: 0; }
+  .rw__controls { display: flex !important; padding: 2px 0 18px; gap: 5px; }
+  .rw__walk { display: none; }
+  .rw__icon { width: 35px; height: 40px; flex: 0 0 35px; }
+  .rw__ticks { gap: 6px; }
+  .rw__tick { min-width: 0; flex: 1; }
+  .rw__tick[aria-current='true'] { flex: 1.7; }
+  .rw__tick-name { display: none !important; }
+  .rw__tick-label { font-size: 9px; }
+  .rw__panel { margin: 0; border-radius: 0; overflow: visible; }
+  .rw__panel-inner { position: static; padding: 18px 0 2px; border-top: 1px solid #ba9a7140; }
+  .salon-product-category { margin-bottom: 10px; font-size: 9px; }
+  .salon-product-title { font-size: 30px; max-width: 100%; line-height: 1.1; }
+  .salon-finish { font-size: 10px; margin: 9px 0 13px; }
+  .salon-description { font-size: 11px; line-height: 1.85; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .salon-benefits { font-size: 10px; gap: 7px; margin-top: 14px; line-height: 1.65; }
+  .rw__bundle { padding: 19px 0 0; gap: 12px; }
+  .salon-price-row strong { font-size: 29px; }
+  .salon-pickup { font-size: 8px; }
+  .rw__lb { bottom: 0; }
+}
+@media (prefers-reduced-motion:reduce) { .rw__look-panel.is-in .salon-product { animation: none; } }
+/* A squat jar needs proportional scaling to sit harmoniously with tall bottles */
+.rw__art img[src*='matte-clay-cutout'] { transform: scale(var(--salon-art-scale, 1.12)); transform-origin: 50% 100%; }
+@media (max-width:749px) { .rw__art img[src*='matte-clay-cutout'] { transform: scale(var(--salon-art-scale, 1.08)); } }
+@media (min-width:750px) {
+  .salon-description { font-size: 13px; line-height: 1.8; }
+  .salon-benefits { font-size: 12px; gap: 8px; line-height: 1.6; }
+}
+/* Keep category and volume distinct even when a long product title wraps. */
+.salon-product-category > span { white-space: nowrap; }
